@@ -1,10 +1,13 @@
-import PlaceCard from '../../components/place-card/place-card';
+import classNames from 'classnames';
+import { PlaceCard } from '../../components/place-card/place-card';
+import { locations, placesOptions } from './helper';
 
-type TMainProps = {
+type MainProps = {
   places: number;
 };
 
-function Main({ places }: TMainProps): JSX.Element {
+/* eslint-disable react/prop-types */
+export const Main: React.FC<MainProps> = ({ places }) => {
   const renderCards = [];
 
   for (let i = 0; i < 5; i++) {
@@ -17,36 +20,20 @@ function Main({ places }: TMainProps): JSX.Element {
       <div className="tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Paris</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Cologne</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Brussels</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item tabs__item--active">
-                <span>Amsterdam</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Hamburg</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Dusseldorf</span>
-              </a>
-            </li>
+            {locations &&
+              locations.map(({ title, id, active }) => (
+                <li className="locations__item" key={id}>
+                  <a
+                    className={classNames(
+                      { 'tabs__item--active': active },
+                      'locations__item-link tabs__item'
+                    )}
+                    href="#"
+                  >
+                    <span>{title}</span>
+                  </a>
+                </li>
+              ))}
           </ul>
         </section>
       </div>
@@ -54,9 +41,11 @@ function Main({ places }: TMainProps): JSX.Element {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">
-              {places} places to stay in Amsterdam
-            </b>
+            {places && (
+              <b className="places__found">
+                {places} places to stay in Amsterdam
+              </b>
+            )}
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex={0}>
@@ -66,26 +55,26 @@ function Main({ places }: TMainProps): JSX.Element {
                 </svg>
               </span>
               <ul className="places__options places__options--custom places__options--opened">
-                <li
-                  className="places__option places__option--active"
-                  tabIndex={0}
-                >
-                  Popular
-                </li>
-                <li className="places__option" tabIndex={0}>
-                  Price: low to high
-                </li>
-                <li className="places__option" tabIndex={0}>
-                  Price: high to low
-                </li>
-                <li className="places__option" tabIndex={0}>
-                  Top rated first
-                </li>
+                {placesOptions &&
+                  placesOptions.map(({ title, id, active }) => (
+                    <li
+                      className={classNames(
+                        { 'places__option--active': active },
+                        'places__option'
+                      )}
+                      tabIndex={0}
+                      key={id}
+                    >
+                      {title}
+                    </li>
+                  ))}
               </ul>
             </form>
-            <div className="cities__places-list places__list tabs__content">
-              {renderCards}
-            </div>
+            {renderCards && (
+              <div className="cities__places-list places__list tabs__content">
+                {renderCards}
+              </div>
+            )}
           </section>
           <div className="cities__right-section">
             <section className="cities__map map" />
@@ -94,6 +83,4 @@ function Main({ places }: TMainProps): JSX.Element {
       </div>
     </main>
   );
-}
-
-export default Main;
+};
