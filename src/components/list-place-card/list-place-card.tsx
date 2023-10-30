@@ -1,28 +1,27 @@
 import { PlaceCard } from '../../components/place-card';
-import { OfferItemProps, OffersProps } from '../../types/offers';
+import { TOffersProps } from '../../types/offers';
+import { TPlaceCardProps } from '../../types/place-card';
 
-export const ListPlaceCard: React.FC<OffersProps> = ({ offers }) =>
+export const ListPlaceCard: React.FC<TOffersProps> = ({ offers }) =>
   offers.map(
     ({
-      id,
-      title,
-      text,
       price,
+      title,
       rating,
-      favorites,
-      image,
-      imageAlt,
-      premium,
-    }: OfferItemProps) => (
+      type,
+      isPremium,
+      isFavorite,
+      previewImage,
+      id,
+    }: TPlaceCardProps) => (
       <PlaceCard
-        title={title}
         price={price}
+        title={title}
         rating={rating}
-        favorites={favorites}
-        image={image}
-        imageAlt={imageAlt}
-        premium={premium}
-        text={text}
+        type={type}
+        isPremium={isPremium}
+        isFavorite={isFavorite}
+        previewImage={previewImage}
         id={id}
         key={id}
       />
