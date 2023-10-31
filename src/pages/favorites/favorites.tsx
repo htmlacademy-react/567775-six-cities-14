@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { LocationsItems } from '../../components/locations-items';
 import { favoritesData } from '../../mocks/favorites';
-import { offersGroupArrayByCity } from '../../components/helpers';
+import { offersGroupArrayByCity } from '../../helpers/helpers';
 
 export const Favorites: React.FC = () => {
   const groupedFavorites = offersGroupArrayByCity(favoritesData.favorites);
@@ -15,11 +15,15 @@ export const Favorites: React.FC = () => {
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              {groupedFavorites.map(({ city, list }) => (
-                <LocationsItems city={city} list={list} key={city} />
-              ))}
-            </ul>
+            {groupedFavorites.length ? (
+              <ul className="favorites__list">
+                {groupedFavorites.map(({ city, list }) => (
+                  <LocationsItems city={city} list={list} key={city} />
+                ))}
+              </ul>
+            ) : (
+              <h2>No result!</h2>
+            )}
           </section>
         </div>
       </main>

@@ -16,31 +16,8 @@ export const LocationsItems: React.FC<TLocationsItemsProps> = ({
       </div>
     </div>
     <div className="favorites__places">
-      {list &&
-        list.map(
-          ({
-            price,
-            title,
-            rating,
-            type,
-            isPremium,
-            isFavorite,
-            previewImage,
-            id,
-          }) => (
-            <FavoritesCard
-              price={price}
-              title={title}
-              rating={rating}
-              type={type}
-              isPremium={isPremium}
-              isFavorite={isFavorite}
-              previewImage={previewImage}
-              id={id}
-              key={id}
-            />
-          )
-        )}
+      {!!list.length &&
+        list.map((item) => <FavoritesCard {...item} key={item?.id} />)}
     </div>
   </li>
 );

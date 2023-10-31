@@ -1,9 +1,9 @@
 import classNames from 'classnames';
-import { ratingPercentage } from '../helpers';
 import { useState } from 'react';
 import { TPlaceCardProps } from '../../types/place-card';
 import { Link } from 'react-router-dom';
 import { AppRouter } from '../../../consts';
+import { ratingPercentage } from '../../helpers/helpers';
 
 export const PlaceCard: React.FC<TPlaceCardProps> = ({
   price,
@@ -78,7 +78,14 @@ export const PlaceCard: React.FC<TPlaceCardProps> = ({
             <Link to={`${AppRouter.Offer}/${id}`}>{title}</Link>
           </h2>
         )}
-        {type && <p className="place-card__type">{type}</p>}
+        {type && (
+          <p
+            className="place-card__type"
+            style={{ textTransform: 'capitalize' }}
+          >
+            {type}
+          </p>
+        )}
       </div>
     </article>
   );
