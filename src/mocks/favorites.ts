@@ -91,7 +91,7 @@ export const favoritesData: TFavoritesProps = {
         isPro: true,
         name: 'Angelina',
       },
-      id: 4,
+      id: 100,
       images: ['img/apartment-03.jpg'],
       isFavorite: true,
       isPremium: false,

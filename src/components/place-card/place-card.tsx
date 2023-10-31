@@ -2,6 +2,8 @@ import classNames from 'classnames';
 import { ratingPercentage } from '../helpers';
 import { useState } from 'react';
 import { TPlaceCardProps } from '../../types/place-card';
+import { Link } from 'react-router-dom';
+import { AppRouter } from '../../../consts';
 
 export const PlaceCard: React.FC<TPlaceCardProps> = ({
   price,
@@ -29,10 +31,9 @@ export const PlaceCard: React.FC<TPlaceCardProps> = ({
           <span>Premium</span>
         </div>
       )}
-
       <div className="cities__image-wrapper place-card__image-wrapper">
         {previewImage && (
-          <a href="#">
+          <Link to={`${AppRouter.Offer}/${id}`}>
             <img
               className="place-card__image"
               src={previewImage}
@@ -40,7 +41,7 @@ export const PlaceCard: React.FC<TPlaceCardProps> = ({
               height={200}
               alt={title}
             />
-          </a>
+          </Link>
         )}
       </div>
       <div className="place-card__info">
@@ -74,7 +75,7 @@ export const PlaceCard: React.FC<TPlaceCardProps> = ({
         )}
         {title && (
           <h2 className="place-card__name">
-            <a href="#">{title}</a>
+            <Link to={`${AppRouter.Offer}/${id}`}>{title}</Link>
           </h2>
         )}
         {type && <p className="place-card__type">{type}</p>}

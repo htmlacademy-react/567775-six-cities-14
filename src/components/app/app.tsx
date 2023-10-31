@@ -11,28 +11,26 @@ type AppProps = {
 
 export default function App({ places }: AppProps) {
   return (
-    <>
-      <Header />
-      <HelmetProvider>
-        <Router>
-          <Routes>
-            <Route path={AppRouter.Main} element={<Main places={places} />} />
-            <Route path={AppRouter.Login} element={<Login />} />
-            <Route
-              path={AppRouter.Favorites}
-              element={
-                <PrivateRoute authStatus={AuthorizationStatus.Auth}>
-                  <Favorites />
-                </PrivateRoute>
-              }
-            />
-            <Route path={AppRouter.Offer}>
-              <Route index element={<Offer />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Router>
-      </HelmetProvider>
-    </>
+    <HelmetProvider>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path={AppRouter.Main} element={<Main places={places} />} />
+          <Route path={AppRouter.Login} element={<Login />} />
+          <Route
+            path={AppRouter.Favorites}
+            element={
+              <PrivateRoute authStatus={AuthorizationStatus.Auth}>
+                <Favorites />
+              </PrivateRoute>
+            }
+          />
+          <Route path={`${AppRouter.Offer}/:id`}>
+            <Route index element={<Offer />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Router>
+    </HelmetProvider>
   );
 }

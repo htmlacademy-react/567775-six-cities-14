@@ -3,6 +3,7 @@ import { FavoritesCard } from '../favorites-card';
 
 export const LocationsItems: React.FC<TLocationsItemsProps> = ({
   city,
+  list,
 }: TLocationsItemsProps) => (
   <li className="favorites__locations-items">
     <div className="favorites__locations locations locations--current">
@@ -15,7 +16,31 @@ export const LocationsItems: React.FC<TLocationsItemsProps> = ({
       </div>
     </div>
     <div className="favorites__places">
-      <FavoritesCard />
+      {list &&
+        list.map(
+          ({
+            price,
+            title,
+            rating,
+            type,
+            isPremium,
+            isFavorite,
+            previewImage,
+            id,
+          }) => (
+            <FavoritesCard
+              price={price}
+              title={title}
+              rating={rating}
+              type={type}
+              isPremium={isPremium}
+              isFavorite={isFavorite}
+              previewImage={previewImage}
+              id={id}
+              key={id}
+            />
+          )
+        )}
     </div>
   </li>
 );

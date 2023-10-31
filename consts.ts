@@ -2,7 +2,7 @@ export enum AppRouter {
   Main = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Offer = '/offer/:id',
+  Offer = '/offer',
 }
 
 export const AuthorizationStatus = {
