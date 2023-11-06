@@ -1,5 +1,5 @@
 export type TCity = {
-  title: string;
+  id: number;
   latitude: number;
   longitude: number;
   zoom: number;
