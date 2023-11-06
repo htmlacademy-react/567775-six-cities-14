@@ -18,7 +18,7 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
-export const Map: React.FC<TMap> = ({ city, points, selectedPoint }) => {
+export const Map: React.FC<TMap> = ({ city, points, selectedPoint }: TMap) => {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -27,13 +27,13 @@ export const Map: React.FC<TMap> = ({ city, points, selectedPoint }) => {
       const markerLayer = layerGroup().addTo(map);
       points.forEach((point) => {
         const marker = new Marker({
-          lat: point.latitude,
-          lng: point.longitude,
+          lat: point?.location.latitude,
+          lng: point?.location.longitude,
         });
 
         marker
           .setIcon(
-            selectedPoint !== undefined && point.id === selectedPoint.id
+            selectedPoint !== undefined && point?.location.id === selectedPoint.id
               ? currentCustomIcon
               : defaultCustomIcon
           )

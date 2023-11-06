@@ -3,7 +3,8 @@ import { TOfferItemProps } from './offers';
 export type TLocation = {
   latitude: number;
   longitude: number;
-  id: number
+  zoom: number;
+  id?: number;
 };
 
 export type TLocationsItemsProps = {
