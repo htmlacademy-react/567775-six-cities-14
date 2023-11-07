@@ -3,6 +3,8 @@ import { locations, placesOptions } from './helper';
 import { Helmet } from 'react-helmet-async';
 import { offersData } from '../../mocks/offers';
 import { ListPlaceCard } from '../../components/list-place-card';
+import { mapDataPoints, mapDataCity } from '../../mocks/map';
+import { CitiesMap } from '../../components/cities-map/cities-map';
 
 type MainProps = {
   places: number;
@@ -76,7 +78,9 @@ export const Main: React.FC<MainProps> = ({ places }) => (
             )}
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map" />
+            <section className="cities__map map">
+              <CitiesMap selectedPoint={undefined} city={mapDataCity} points={mapDataPoints} />
+            </section>
           </div>
         </div>
       </div>
