@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 
 export const FormReview: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -23,7 +23,7 @@ export const FormReview: React.FC = () => {
       </label>
       <div className="reviews__rating-form form__rating">
         {listRadioButtons.map((radioValue) => (
-          <>
+          <Fragment key={radioValue}>
             <input
               className="form__rating-input visually-hidden"
               name="rating"
@@ -41,7 +41,7 @@ export const FormReview: React.FC = () => {
                 <use xlinkHref="#icon-star" />
               </svg>
             </label>
-          </>
+          </Fragment>
         ))}
       </div>
       <textarea

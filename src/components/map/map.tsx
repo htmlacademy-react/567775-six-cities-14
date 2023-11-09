@@ -18,7 +18,7 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
-export const Map: React.FC<TMap> = ({ city, points, selectedPoint }: TMap) => {
+export const Map: React.FC<TMap> = ({ city, points, selectedPoint = undefined }: TMap) => {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
