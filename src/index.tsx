@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import App from './components/app/app';
+import { store } from './store';
 
 const Setting = {
   Places: 312,
@@ -12,6 +14,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App places={Setting.Places} />
+    <Provider store={store}>
+      <App places={Setting.Places} />
+    </Provider>
   </React.StrictMode>
 );
