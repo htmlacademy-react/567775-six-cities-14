@@ -1,8 +1,8 @@
-import { TCityOptions } from "./city";
+import { TCityOptions } from './city';
 
 export type TTabsItem = {
   id: TCityOptions;
-  title: string;
+  title: TCityOptions;
 };
 
 export type TTabsList = {

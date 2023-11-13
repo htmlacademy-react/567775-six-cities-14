@@ -5,7 +5,7 @@ import { getOffers, setCityActive } from '../../store/action';
 import styled from './tabs.module.css';
 import { TCityOptions } from '../../types/city';
 
-export const TabsList: React.FC<TTabsList> = ({ list, active }) => {
+export const TabsList: React.FC<TTabsList> = ({ list, active }: TTabsList) => {
   const dispatch = useAppDispatch();
 
   const handleClick = (id: TCityOptions) => {

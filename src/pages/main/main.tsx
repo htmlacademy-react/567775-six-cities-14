@@ -9,7 +9,6 @@ import { TabsList } from '../../components/tabs-list';
 
 /* eslint-disable react/prop-types */
 export const Main: React.FC = () => {
-  // const dispatch = useAppDispatch();
   const offersData = useAppSelector((state) => state.offers);
   const cityActive = useAppSelector((state) => state.cityActive);
   const places = offersData.length;
@@ -33,27 +32,6 @@ export const Main: React.FC = () => {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <TabsList list={locations.list} active={cityActive} />
-
-        {/* <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              {locations &&
-                locations.map(({ title, id, active }) => (
-                  <li className="locations__item" key={id}>
-                    <a
-                      className={classNames(
-                        { 'tabs__item--active': active },
-                        'locations__item-link tabs__item'
-                      )}
-                      href="#"
-                    >
-                      <span>{title}</span>
-                    </a>
-                  </li>
-                ))}
-            </ul>
-          </section>
-        </div> */}
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
