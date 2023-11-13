@@ -3,23 +3,18 @@ import { locations, placesOptions } from './helper';
 import { Helmet } from 'react-helmet-async';
 import { ListPlaceCard } from '../../components/list-place-card';
 import { CitiesMap } from '../../components/cities-map/cities-map';
-import { useAppDispatch, useAppSelector } from '../../hooks/use-store';
+import { useAppSelector } from '../../hooks/use-store';
 import { TPoints } from '../../types/map';
-import { useEffect } from 'react';
-import { setOffers } from '../../store/action';
+import { TabsList } from '../../components/tabs-list';
 
 /* eslint-disable react/prop-types */
 export const Main: React.FC = () => {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const offersData = useAppSelector((state) => state.offers);
   const cityActive = useAppSelector((state) => state.cityActive);
   const places = offersData.length;
   const mapDataCity = offersData[0]?.city;
   const mapDataPointsNew: TPoints[] = [];
-
-  useEffect(() => {
-    dispatch(setOffers({ city: cityActive }));
-  }, [cityActive]);
 
   offersData.forEach((elem) => {
     if (elem?.location) {
@@ -37,7 +32,9 @@ export const Main: React.FC = () => {
       </Helmet>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
+        <TabsList list={locations.list} active={cityActive} />
+
+        {/* <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
               {locations &&
@@ -56,7 +53,7 @@ export const Main: React.FC = () => {
                 ))}
             </ul>
           </section>
-        </div>
+        </div> */}
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">

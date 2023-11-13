@@ -1,11 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setOffers } from './action';
+import { getOffers, setCityActive } from './action';
 import { offersData } from '../mocks/offers';
-import { CITY_LIST } from '../../consts';
+import { DEFAULT_CITY } from '../../consts';
+import { TInitState } from '../types/state';
 
-const DEFAULT_CITY = CITY_LIST.Paris;
-
-const initialState = {
+const initialState: TInitState = {
   cityActive: DEFAULT_CITY,
   offers: offersData?.offers.filter(
     (item) => item?.city?.name === DEFAULT_CITY
@@ -13,11 +12,18 @@ const initialState = {
 };
 
 const reducer = createReducer(initialState, (builder) => {
-  builder.addCase(setOffers, (state, action) => {
-    const { city } = action.payload;
+  builder
+    .addCase(setCityActive, (state, action) => {
+      const { city } = action.payload;
 
-    state.offers = state.offers.filter((item) => item?.city?.name === city);
-  });
+      state.cityActive = city;
+    })
+
+    .addCase(getOffers, (state) => {
+      state.offers = offersData?.offers.filter(
+        (item) => item?.city?.name === state.cityActive
+      );
+    });
 });
 
 export { reducer };

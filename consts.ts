@@ -25,3 +25,5 @@ export const CITY_LIST = {
   Hamburg: 'Hamburg',
   Dusseldorf: 'Dusseldorf',
 } as const;
+
+export const DEFAULT_CITY = CITY_LIST.Paris;
