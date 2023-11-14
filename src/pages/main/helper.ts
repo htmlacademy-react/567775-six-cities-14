@@ -1,41 +1,41 @@
+import { DEFAULT_CITY } from '../../../consts';
+import { TTabsList } from '../../types/tabs';
+
 type TListProps = {
-  id: number;
+  id: number | string;
   title: string;
-  active: boolean;
+  active?: boolean;
 }[];
 
-export const locations: TListProps = [
-  {
-    id: 1,
-    title: 'Paris',
-    active: false,
-  },
-  {
-    id: 2,
-    title: 'Cologne',
-    active: false,
-  },
-  {
-    id: 3,
-    title: 'Brussels',
-    active: false,
-  },
-  {
-    id: 4,
-    title: 'Amsterdam',
-    active: true,
-  },
-  {
-    id: 5,
-    title: 'Hamburg',
-    active: false,
-  },
-  {
-    id: 6,
-    title: 'Dusseldorf',
-    active: false,
-  },
-];
+export const locations: TTabsList = {
+  list: [
+    {
+      id: 'Paris',
+      title: 'Paris',
+    },
+    {
+      id: 'Cologne',
+      title: 'Cologne',
+    },
+    {
+      id: 'Brussels',
+      title: 'Brussels',
+    },
+    {
+      id: 'Amsterdam',
+      title: 'Amsterdam',
+    },
+    {
+      id: 'Hamburg',
+      title: 'Hamburg',
+    },
+    {
+      id: 'Dusseldorf',
+      title: 'Dusseldorf',
+    },
+  ],
+  active: DEFAULT_CITY,
+};
 
 export const placesOptions: TListProps = [
   {

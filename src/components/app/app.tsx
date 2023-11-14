@@ -5,17 +5,13 @@ import { PrivateRoute } from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
 import { Header } from '../header/header';
 
-type AppProps = {
-  places: number;
-};
-
-export default function App({ places }: AppProps) {
+export default function App() {
   return (
     <HelmetProvider>
       <Router>
         <Header />
         <Routes>
-          <Route path={AppRouter.Main} element={<Main places={places} />} />
+          <Route path={AppRouter.Main} element={<Main />} />
           <Route path={AppRouter.Login} element={<Login />} />
           <Route
             path={AppRouter.Favorites}

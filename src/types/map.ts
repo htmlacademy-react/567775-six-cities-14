@@ -1,7 +1,7 @@
 import { TCity } from './city';
 import { TLocation } from './locations';
 
-type TPoints = {
+export type TPoints = {
   location: TLocation;
   name?: string;
 };
