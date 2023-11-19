@@ -1,4 +1,4 @@
-import { TOfferItemProps } from './offers';
+import { TOfferItemProps, TOfferOnHover } from './offers';
 
 export type TPlaceCardProps = Pick<
   TOfferItemProps,
@@ -10,4 +10,6 @@ export type TPlaceCardProps = Pick<
   | 'isFavorite'
   | 'previewImage'
   | 'id'
->;
+  | 'location'
+> &
+  TOfferOnHover;

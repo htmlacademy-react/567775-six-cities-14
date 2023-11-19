@@ -18,7 +18,11 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
-export const Map: React.FC<TMap> = ({ city, points, selectedPoint = undefined }: TMap) => {
+export const Map: React.FC<TMap> = ({
+  city,
+  points,
+  selectedPoint = undefined,
+}: TMap) => {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -33,7 +37,7 @@ export const Map: React.FC<TMap> = ({ city, points, selectedPoint = undefined }:
 
         marker
           .setIcon(
-            selectedPoint !== undefined && point?.location.id === selectedPoint.id
+            selectedPoint !== undefined && point?.location.id === selectedPoint
               ? currentCustomIcon
               : defaultCustomIcon
           )

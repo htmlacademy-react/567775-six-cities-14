@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { LocationsItems } from '../../components/locations-items';
 import { favoritesData } from '../../mocks/favorites';
-import { offersGroupArrayByCity } from '../../helpers/helpers';
+import { offersGroupArrayByCity } from '../../helpers';
 
 export const Favorites: React.FC = () => {
   const groupedFavorites = offersGroupArrayByCity(favoritesData.favorites);

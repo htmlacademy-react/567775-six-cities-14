@@ -1,11 +1,12 @@
-import classNames from 'classnames';
 import { locations, placesOptions } from './helper';
 import { Helmet } from 'react-helmet-async';
 import { ListPlaceCard } from '../../components/list-place-card';
-import { CitiesMap } from '../../components/cities-map/cities-map';
 import { useAppSelector } from '../../hooks/use-store';
 import { TPoints } from '../../types/map';
 import { TabsList } from '../../components/tabs-list';
+import { SortingSelect } from '../../components/sorting-select';
+import { Map } from '../../components/map';
+import { useState } from 'react';
 
 /* eslint-disable react/prop-types */
 export const Main: React.FC = () => {
@@ -14,6 +15,11 @@ export const Main: React.FC = () => {
   const places = offersData.length;
   const mapDataCity = offersData[0]?.city;
   const mapDataPointsNew: TPoints[] = [];
+  const [selectedId, setSelectedId] = useState<number | undefined>(undefined);
+
+  const onHover = (value: number | undefined) => {
+    setSelectedId(value);
+  };
 
   offersData.forEach((elem) => {
     if (elem?.location) {
@@ -39,43 +45,18 @@ export const Main: React.FC = () => {
               <b className="places__found">
                 {`${places} places to stay in ${cityActive}`}
               </b>
-              {!!places && (
-                <form className="places__sorting" action="#" method="get">
-                  <span className="places__sorting-caption">Sort by</span>
-                  <span className="places__sorting-type" tabIndex={0}>
-                    Popular
-                    <svg className="places__sorting-arrow" width={7} height={4}>
-                      <use xlinkHref="#icon-arrow-select" />
-                    </svg>
-                  </span>
-                  <ul className="places__options places__options--custom places__options--opened">
-                    {placesOptions &&
-                      placesOptions.map(({ title, id, active }) => (
-                        <li
-                          className={classNames(
-                            { 'places__option--active': active },
-                            'places__option'
-                          )}
-                          tabIndex={0}
-                          key={id}
-                        >
-                          {title}
-                        </li>
-                      ))}
-                  </ul>
-                </form>
-              )}
+              {!!places && <SortingSelect list={placesOptions} />}
               {offersData && (
                 <div className="cities__places-list places__list tabs__content">
-                  {<ListPlaceCard offers={offersData} />}
+                  {<ListPlaceCard offers={offersData} onHover={onHover} />}
                 </div>
               )}
             </section>
             <div className="cities__right-section">
               {mapDataPointsNew && (
                 <section className="cities__map map">
-                  <CitiesMap
-                    selectedPoint={undefined}
+                  <Map
+                    selectedPoint={selectedId}
                     city={mapDataCity}
                     points={mapDataPointsNew}
                   />

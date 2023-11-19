@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { TPlaceCardProps } from '../../types/place-card';
 import { Link } from 'react-router-dom';
 import { AppRouter } from '../../../consts';
-import { ratingPercentage } from '../../helpers/helpers';
+import { ratingPercentage } from '../../helpers';
 
 export const FavoritesCard: React.FC<TPlaceCardProps> = ({
   price,

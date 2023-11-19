@@ -1,4 +1,4 @@
-import { TOfferItemProps } from '../../types/offers';
+import { TOfferItemProps } from '../types/offers';
 
 type TGroupArrayByCity = {
   [key: string]: TOfferItemProps[];
