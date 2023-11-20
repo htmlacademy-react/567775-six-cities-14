@@ -1,11 +1,6 @@
 import { DEFAULT_CITY } from '../../../consts';
+import { TSortingOption } from '../../types/sorting';
 import { TTabsList } from '../../types/tabs';
-
-type TListProps = {
-  id: number | string;
-  title: string;
-  active?: boolean;
-}[];
 
 export const locations: TTabsList = {
   list: [
@@ -37,24 +32,24 @@ export const locations: TTabsList = {
   active: DEFAULT_CITY,
 };
 
-export const placesOptions: TListProps = [
+export const placesOptions: TSortingOption[] = [
   {
-    id: 1,
+    id: 'popular',
     title: 'Popular',
     active: true,
   },
   {
-    id: 2,
+    id: 'price-low-to-high',
     title: 'Price: low to high',
     active: false,
   },
   {
-    id: 3,
+    id: 'price-high-to-low',
     title: 'Price: high to low',
     active: false,
   },
   {
-    id: 4,
+    id: 'top-rated',
     title: 'Top rated first',
     active: false,
   },

@@ -1,11 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { getOffers, setCityActive } from './action';
+import { getOffers, setCityActive, setSorting } from './action';
 import { offersData } from '../mocks/offers';
-import { DEFAULT_CITY } from '../../consts';
+import { DEFAULT_CITY, DEFAULT_SORTING } from '../../consts';
 import { TInitState } from '../types/state';
+import { offersSorting } from '../helpers';
 
 const initialState: TInitState = {
   cityActive: DEFAULT_CITY,
+  sortingBy: DEFAULT_SORTING,
   offers: offersData?.offers.filter(
     (item) => item?.city?.name === DEFAULT_CITY
   ),
@@ -20,9 +22,17 @@ const reducer = createReducer(initialState, (builder) => {
     })
 
     .addCase(getOffers, (state) => {
-      state.offers = offersData?.offers.filter(
+      const offersByCity = offersData?.offers.filter(
         (item) => item?.city?.name === state.cityActive
       );
+
+      state.offers = offersSorting(state.sortingBy, offersByCity);
+    })
+
+    .addCase(setSorting, (state, action) => {
+      const { sorting } = action.payload;
+
+      state.sortingBy = sorting;
     });
 });
 

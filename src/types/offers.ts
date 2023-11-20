@@ -2,6 +2,10 @@ import { TCity } from './city';
 import { THost } from './host';
 import { TLocation } from './locations';
 
+export type TOfferOnHover = {
+  onHover?(id: number | undefined): void;
+};
+
 export type TOfferItemProps = {
   bedrooms: number;
   city: TCity;
@@ -23,4 +27,4 @@ export type TOfferItemProps = {
 
 export type TOffersProps = {
   offers: TOfferItemProps[];
-};
+} & TOfferOnHover;

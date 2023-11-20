@@ -1,4 +1,4 @@
-import { ratingPercentage } from '../../helpers/helpers';
+import { ratingPercentage } from '../../helpers';
 import { useDate } from '../../hooks/use-date';
 import { TReviewsItem } from '../../types/reviews';
 
