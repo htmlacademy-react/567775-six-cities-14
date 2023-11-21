@@ -8,9 +8,10 @@ import { offersSorting } from '../helpers';
 const initialState: TInitState = {
   cityActive: DEFAULT_CITY,
   sortingBy: DEFAULT_SORTING,
-  offers: offersData?.offers.filter(
-    (item) => item?.city?.name === DEFAULT_CITY
-  ),
+  // offers: offersData?.offers.filter(
+  //   (item) => item?.city?.name === DEFAULT_CITY
+  // ),
+  offers: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
