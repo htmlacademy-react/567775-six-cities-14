@@ -1,9 +1,9 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getOffers } from './action.js';
+import { getOffers, setOffers, setOffersIsLoading } from './action.js';
 import { ApiRoute } from '../../consts.js';
 import { TAppDispatch, TState } from '../types/state.js';
-// import { TOfferItemProps } from '../types/offers.js';
+import { TOfferItemProps } from '../types/offers.js';
 
 export const fetchOffersAction = createAsyncThunk<
   void,
@@ -14,11 +14,11 @@ export const fetchOffersAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('fetchOffers', async (_arg, { dispatch, extra: api }) => {
-  // dispatch(setQuestionsDataLoadingStatus(true));
-  const { data } = await api.get(ApiRoute.Offers);
+  dispatch(setOffersIsLoading(true));
 
-  dispatch(getOffers(data));
+  const { data } = await api.get<TOfferItemProps[]>(ApiRoute.Offers);
 
-  // dispatch(setQuestionsDataLoadingStatus(false));
-  // dispatch(loadQuestions(data));
+  dispatch(setOffersIsLoading(false));
+  dispatch(setOffers(data));
+  dispatch(getOffers());
 });
