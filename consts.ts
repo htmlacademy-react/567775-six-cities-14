@@ -28,3 +28,10 @@ export const CITY_LIST = {
 
 export const DEFAULT_CITY = CITY_LIST.Paris;
 export const DEFAULT_SORTING = 'popular';
+
+export const ApiRoute = {
+  Offers: '/offers',
+  Favorite: '/favorite',
+  Comments: '/comments/',
+  Login: '/login',
+} as const;

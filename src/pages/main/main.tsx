@@ -7,11 +7,13 @@ import { TabsList } from '../../components/tabs-list';
 import { SortingSelect } from '../../components/sorting-select';
 import { Map } from '../../components/map';
 import { useState } from 'react';
+import { Spinner } from '../../components/spinner';
 
 /* eslint-disable react/prop-types */
 export const Main: React.FC = () => {
   const offersData = useAppSelector((state) => state.offers);
   const cityActive = useAppSelector((state) => state.cityActive);
+  const offersIsLoading = useAppSelector((state) => state.offersIsLoading);
   const places = offersData.length;
   const mapDataCity = offersData[0]?.city;
   const mapDataPointsNew: TPoints[] = [];
@@ -40,6 +42,7 @@ export const Main: React.FC = () => {
         <TabsList list={locations.list} active={cityActive} />
         <div className="cities">
           <div className="cities__places-container container">
+            {offersIsLoading && <Spinner />}
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
@@ -53,7 +56,7 @@ export const Main: React.FC = () => {
               )}
             </section>
             <div className="cities__right-section">
-              {mapDataPointsNew && (
+              {!!mapDataPointsNew.length && (
                 <section className="cities__map map">
                   <Map
                     selectedPoint={selectedId}

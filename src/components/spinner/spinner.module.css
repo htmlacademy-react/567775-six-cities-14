@@ -1,0 +1,22 @@
+.spinner {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #eee;
+  border-top-color: #4481c3;
+  animation: spinner 0.8s linear infinite;
+  position: absolute;
+  top: calc(50% - 16px);
+  left: calc(50% - 16px);
+  z-index: 2;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(1turn);
+  }
+}
