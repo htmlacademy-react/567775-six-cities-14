@@ -5,11 +5,11 @@ export enum AppRouter {
   Offer = '/offer',
 }
 
-export const AuthorizationStatus = {
-  Auth: 'AUTH',
-  NoAuth: 'NO_AUTH',
-  Unknown: 'UNKNOWN',
-} as const;
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
 
 export const URL_MARKER_DEFAULT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
@@ -28,10 +28,11 @@ export const CITY_LIST = {
 
 export const DEFAULT_CITY = CITY_LIST.Paris;
 export const DEFAULT_SORTING = 'popular';
+export const TIMEOUT_SHOW_ERROR = 2000;
 
 export const ApiRoute = {
   Offers: '/offers',
-  Favorite: '/favorite',
-  Comments: '/comments/',
+  Favorites: '/favorites',
   Login: '/login',
+  Logout: '/logout',
 } as const;

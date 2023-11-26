@@ -4,3 +4,9 @@ export type TUser = {
   isPro: boolean;
   name: string;
 };
+
+export type TUserData = {
+  id: number;
+  email: string;
+  token: string;
+};
