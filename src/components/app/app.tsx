@@ -1,14 +1,21 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Main, Favorites, Offer, Login, NotFound } from '../../pages';
-import { AppRouter, AuthorizationStatus } from '../../../consts';
+import { AppRouter } from '../../../consts';
 import { PrivateRoute } from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
 import { Header } from '../header/header';
+import { browserHistory } from '../../../browser-history';
+import { HistoryRouter } from '../history-route';
+import { useAppSelector } from '../../hooks/use-store';
 
 export default function App() {
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus
+  );
+
   return (
     <HelmetProvider>
-      <Router>
+      <HistoryRouter history={browserHistory}>
         <Header />
         <Routes>
           <Route path={AppRouter.Main} element={<Main />} />
@@ -16,7 +23,7 @@ export default function App() {
           <Route
             path={AppRouter.Favorites}
             element={
-              <PrivateRoute authStatus={AuthorizationStatus.Auth}>
+              <PrivateRoute authStatus={authorizationStatus}>
                 <Favorites />
               </PrivateRoute>
             }
@@ -26,7 +33,7 @@ export default function App() {
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </Router>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }

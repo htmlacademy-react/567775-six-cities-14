@@ -5,21 +5,37 @@ import {
   setSorting,
   setOffers,
   setOffersIsLoading,
+  requireAuthorization,
 } from './action';
-import { DEFAULT_CITY, DEFAULT_SORTING } from '../../consts';
+import {
+  AuthorizationStatus,
+  DEFAULT_CITY,
+  DEFAULT_SORTING,
+} from '../../consts';
 import { TInitState } from '../types/state';
 import { offersSorting } from '../helpers';
+import { getToket } from '../services/token';
+
+const token = getToket();
 
 const initialState: TInitState = {
+  authorizationStatus: token
+    ? AuthorizationStatus.Auth
+    : AuthorizationStatus.Unknown,
   cityActive: DEFAULT_CITY,
   sortingBy: DEFAULT_SORTING,
   offersAll: [],
   offers: [],
   offersIsLoading: false,
+  error: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+
     .addCase(setCityActive, (state, action) => {
       const { city } = action.payload;
 
