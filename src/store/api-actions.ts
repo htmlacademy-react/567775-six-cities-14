@@ -5,6 +5,9 @@ import {
   redirectToRoute,
   requireAuthorization,
   setError,
+  setOfferComments,
+  setOfferCommentsIsLoading,
+  setOfferCommentsIsNotFound,
   setOfferDetail,
   setOfferDetailIsLoading,
   setOfferDetailIsNotFound,
@@ -23,6 +26,7 @@ import { TAuthData } from '../types/auth-data.js';
 import { dropToken, saveToken } from '../services/token.js';
 import { TUserData } from '../types/user.js';
 import { store } from './index.js';
+import { ReviewsItemProps } from '../types/reviews.js';
 
 export const fetchOffersAction = createAsyncThunk<
   void,
@@ -120,5 +124,34 @@ export const fetchOfferDetailAction = createAsyncThunk<
     dispatch(setOfferDetailIsNotFound(true));
   } finally {
     dispatch(setOfferDetailIsLoading(false));
+  }
+});
+
+export const fetchOfferCommentsAction = createAsyncThunk<
+  void,
+  number | string | undefined,
+  {
+    dispatch: TAppDispatch;
+    state: TState;
+    extra: AxiosInstance;
+  }
+>('fetchOfferComments', async (_arg, { dispatch, extra: api }) => {
+  const id = _arg;
+
+  dispatch(setOfferCommentsIsLoading(true));
+  dispatch(setOfferCommentsIsNotFound(false));
+
+  try {
+    const { data } = await api.get<ReviewsItemProps[]>(
+      `${ApiRoute.Comments}/${id}`
+    );
+
+    if (data) {
+      dispatch(setOfferComments(data));
+    }
+  } catch {
+    dispatch(setOfferCommentsIsNotFound(true));
+  } finally {
+    dispatch(setOfferCommentsIsLoading(false));
   }
 });

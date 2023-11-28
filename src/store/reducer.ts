@@ -9,6 +9,9 @@ import {
   setOfferDetailIsLoading,
   setOfferDetail,
   setOfferDetailIsNotFound,
+  setOfferComments,
+  setOfferCommentsIsLoading,
+  setOfferCommentsIsNotFound,
 } from './action';
 import {
   AuthorizationStatus,
@@ -34,6 +37,9 @@ const initialState: TInitState = {
   offerDetail: null,
   offerDetailIsLoading: false,
   offerDetailIsNotFound: false,
+  offerComments: [],
+  offerCommentsIsLoading: false,
+  offerCommentsIsNotFound: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -91,6 +97,18 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setOfferDetailIsNotFound, (state, action) => {
       state.offerDetailIsNotFound = action.payload;
     })
+
+    .addCase(setOfferComments, (state, action) => {
+      state.offerComments = action.payload;
+    })
+
+    .addCase(setOfferCommentsIsLoading, (state, action) => {
+      state.offerCommentsIsLoading = action.payload;
+    })
+
+    .addCase(setOfferCommentsIsNotFound, (state, action) => {
+      state.offerCommentsIsNotFound = action.payload;
+    });
 });
 
 export { reducer };

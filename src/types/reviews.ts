@@ -1,13 +1,13 @@
 import { TUser } from './user';
 
-export type TReviewsItem = {
+export type ReviewsItemProps = {
   comment: string;
   date: string;
-  id: number;
+  id: number | string;
   rating: number;
   user: TUser;
 };
 
-export type TReviewsList = {
-  list: TReviewsItem[];
+export type ReviewsListProps = {
+  id: number | string;
 };

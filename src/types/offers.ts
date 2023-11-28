@@ -22,7 +22,7 @@ export type TOfferItemProps = {
   price: number;
   rating: number;
   title: string;
-  type: 'apartment' | 'room';
+  type: string;
 };
 
 export type TOffersProps = {

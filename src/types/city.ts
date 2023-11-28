@@ -5,5 +5,5 @@ export type TCityOptions = (typeof CITY_LIST)[keyof typeof CITY_LIST];
 
 export type TCity = {
   location: TLocation;
-  name: TCityOptions;
+  name?: TCityOptions;
 };

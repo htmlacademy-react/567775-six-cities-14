@@ -3,6 +3,7 @@ import { TCityOptions } from '../types/city';
 import { TSortingOffers } from '../types/sorting';
 import { TOfferItemProps } from '../types/offers';
 import { AppRouter, AuthorizationStatus } from '../../consts';
+import { ReviewsItemProps } from '../types/reviews';
 
 export const setCityActive = createAction<{ city: TCityOptions }>(
   'setCityActive'
@@ -24,4 +25,12 @@ export const setOfferDetailIsLoading = createAction<boolean>(
 );
 export const setOfferDetailIsNotFound = createAction<boolean>(
   'setOfferDetailIsNotFound'
+);
+export const setOfferComments =
+  createAction<ReviewsItemProps[]>('setOfferComments');
+export const setOfferCommentsIsLoading = createAction<boolean>(
+  'setOfferCommentsIsLoading'
+);
+export const setOfferCommentsIsNotFound = createAction<boolean>(
+  'setOfferCommentsIsNotFound'
 );

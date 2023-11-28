@@ -1,13 +1,13 @@
 import { ratingPercentage } from '../../helpers';
 import { useDate } from '../../hooks/use-date';
-import { TReviewsItem } from '../../types/reviews';
+import { ReviewsItemProps } from '../../types/reviews';
 
-export const ReviewsItem: React.FC<TReviewsItem> = ({
+export const ReviewsItem: React.FC<ReviewsItemProps> = ({
   comment,
   date,
   rating,
   user,
-}: TReviewsItem) => {
+}: ReviewsItemProps) => {
   const { getMonthText, getYear, getDay, getMonth } = useDate(date);
 
   return (
