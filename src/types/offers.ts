@@ -12,13 +12,13 @@ export type TOfferItemProps = {
   description: string;
   goods: string[];
   host: THost;
-  id: number;
+  id: number | string;
   images: string[];
   isFavorite: boolean;
   isPremium: boolean;
   location: TLocation;
   maxAdults: number;
-  previewImage: string;
+  previewImage?: string;
   price: number;
   rating: number;
   title: string;
