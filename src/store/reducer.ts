@@ -6,8 +6,9 @@ import {
   setOffers,
   setOffersIsLoading,
   requireAuthorization,
-  getOfferDetail,
   setOfferDetailIsLoading,
+  setOfferDetail,
+  setOfferDetailIsNotFound,
 } from './action';
 import {
   AuthorizationStatus,
@@ -32,6 +33,7 @@ const initialState: TInitState = {
   error: null,
   offerDetail: null,
   offerDetailIsLoading: false,
+  offerDetailIsNotFound: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -74,16 +76,20 @@ const reducer = createReducer(initialState, (builder) => {
       state.offersIsLoading = action.payload;
     })
 
-    .addCase(getOfferDetail, (state, action) => {
-      const offetDetailData = action.payload;
+    .addCase(setOfferDetail, (state, action) => {
+      const offerDetailData = action.payload;
 
-      if (offetDetailData) {
-        state.offerDetail = offetDetailData;
+      if (offerDetailData) {
+        state.offerDetail = offerDetailData;
       }
     })
 
     .addCase(setOfferDetailIsLoading, (state, action) => {
       state.offerDetailIsLoading = action.payload;
+    })
+
+    .addCase(setOfferDetailIsNotFound, (state, action) => {
+      state.offerDetailIsNotFound = action.payload;
     })
 });
 

@@ -14,6 +14,7 @@ export type TInitState = {
   error: string | null;
   offerDetail: TOfferItemProps | null;
   offerDetailIsLoading: boolean;
+  offerDetailIsNotFound: boolean;
 };
 
 export type TState = ReturnType<typeof store.getState>;

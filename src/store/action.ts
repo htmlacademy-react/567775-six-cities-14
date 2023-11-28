@@ -18,5 +18,10 @@ export const requireAuthorization = createAction<AuthorizationStatus>(
 );
 export const setError = createAction<string | null>('setError');
 export const redirectToRoute = createAction<AppRouter>('redirectToRoute');
-export const getOfferDetail= createAction('getOfferDetail');
-export const setOfferDetailIsLoading = createAction<boolean>('setOfferDetailIsLoading');
+export const setOfferDetail = createAction<TOfferItemProps>('setOfferDetail');
+export const setOfferDetailIsLoading = createAction<boolean>(
+  'setOfferDetailIsLoading'
+);
+export const setOfferDetailIsNotFound = createAction<boolean>(
+  'setOfferDetailIsNotFound'
+);

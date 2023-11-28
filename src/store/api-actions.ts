@@ -1,12 +1,13 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
-  getOfferDetail,
   getOffers,
   redirectToRoute,
   requireAuthorization,
   setError,
+  setOfferDetail,
   setOfferDetailIsLoading,
+  setOfferDetailIsNotFound,
   setOffers,
   setOffersIsLoading,
 } from './action.js';
@@ -107,20 +108,17 @@ export const fetchOfferDetailAction = createAsyncThunk<
   const id = _arg;
 
   dispatch(setOfferDetailIsLoading(true));
+  dispatch(setOfferDetailIsNotFound(false));
 
   try {
-    const { data } = await api.get<TOfferItemProps>(
-      `${ApiRoute.Offers}/${id}`
-    );
+    const { data } = await api.get<TOfferItemProps>(`${ApiRoute.Offers}/${id}`);
 
     if (data) {
-      dispatch(getOfferDetail());
+      dispatch(setOfferDetail(data));
     }
   } catch {
-    dispatch(redirectToRoute(AppRouter.NotFound));
-
-    console.log('not found')
+    dispatch(setOfferDetailIsNotFound(true));
   } finally {
-    dispatch(setOfferDetailIsLoading(false))
+    dispatch(setOfferDetailIsLoading(false));
   }
 });
