@@ -21,7 +21,7 @@ export const ReviewsList: React.FC<ReviewsListProps> = ({
     <div style={{ position: 'relative' }}>
       {isLoading && <Spinner />}
       {isNotFound && <h2 className="reviews__title">No reviews</h2>}
-      {list.length > 0 && !isNotFound && !isLoading && (
+      {list.length > 0 && !isNotFound && (
         <>
           <h2 className="reviews__title">
             Reviews · <span className="reviews__amount">{list.length}</span>

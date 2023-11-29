@@ -11,3 +11,7 @@ export type ReviewsItemProps = {
 export type ReviewsListProps = {
   id: number | string;
 };
+
+export type FormReviewsProps = {
+  idOffer: string;
+};

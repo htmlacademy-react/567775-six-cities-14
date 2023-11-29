@@ -30,6 +30,7 @@ import { dropToken, saveToken } from '../services/token.js';
 import { TUserData } from '../types/user.js';
 import { store } from './index.js';
 import { ReviewsItemProps } from '../types/reviews.js';
+import { CommentData } from '../types/comments.js';
 
 export const fetchOffersAction = createAsyncThunk<
   void,
@@ -187,3 +188,23 @@ export const fetchOffersNearbyAction = createAsyncThunk<
     dispatch(setOffersNearbyIsLoading(false));
   }
 });
+
+export const submitCommentAction = createAsyncThunk<
+  void,
+  CommentData,
+  {
+    dispatch: TAppDispatch;
+    state: TState;
+    extra: AxiosInstance;
+  }
+>(
+  'submitComment',
+  async ({ id, comment, rating }, { dispatch, extra: api }) => {
+    await api.post<CommentData>(`${ApiRoute.Comments}/${id}`, {
+      comment: comment,
+      rating: rating,
+    });
+
+    dispatch(fetchOfferCommentsAction(id));
+  }
+);

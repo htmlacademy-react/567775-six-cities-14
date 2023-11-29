@@ -22,7 +22,9 @@ export const NearPlaces: React.FC<{ id: string | number }> = ({
     <section className="near-places places" style={{ position: 'relative' }}>
       <h2 className="near-places__title">Other places in the neighbourhood</h2>
       {isLoading && <Spinner />}
-      {isNotFound && <h2 className="reviews__title">No reviews</h2>}
+      {isNotFound && (
+        <h2 className="near-places__title">No other places nearbys</h2>
+      )}
       {list.length > 0 && !isNotFound && !isLoading && (
         <div className="near-places__list places__list">
           {<ListPlaceCard offers={list} />}

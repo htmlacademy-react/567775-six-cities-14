@@ -169,9 +169,13 @@ export const Offer: React.FC = () => {
                     )}
                   </div>
                   <section className="offer__reviews reviews">
-                    {queryId && <ReviewsList id={queryId} />}
-                    {authorizationStatus === AuthorizationStatus.Auth && (
-                      <FormReview />
+                    {queryId && (
+                      <>
+                        <ReviewsList id={queryId} />
+                        {authorizationStatus === AuthorizationStatus.Auth && (
+                          <FormReview idOffer={queryId} />
+                        )}
+                      </>
                     )}
                   </section>
                 </div>

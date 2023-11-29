@@ -1,10 +1,23 @@
-import { Fragment, useState } from 'react';
+import { FormEvent, Fragment, useState, useEffect } from 'react';
+import { useAppDispatch } from '../../hooks/use-store';
+import { submitCommentAction } from '../../store/api-actions';
+import { FormReviewsProps } from '../../types/reviews';
 
-export const FormReview: React.FC = () => {
+export const FormReview: React.FC<FormReviewsProps> = ({
+  idOffer,
+}: FormReviewsProps) => {
+  const dispatch = useAppDispatch();
+
   const [formData, setFormData] = useState({
     rating: null,
     review: '',
   });
+
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    setDisabled(formData.review.length < 50 || formData.rating === null);
+  }, [formData.rating, formData.review]);
 
   const fieldChangeHandle = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -16,8 +29,38 @@ export const FormReview: React.FC = () => {
 
   const listRadioButtons: number[] = [5, 4, 3, 2, 1];
 
+  const resetForm = () => {
+    setFormData({
+      rating: null,
+      review: '',
+    });
+
+    setDisabled(true);
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (idOffer && !disabled) {
+      dispatch(
+        submitCommentAction({
+          id: idOffer,
+          comment: formData.review,
+          rating: Number(formData.rating),
+        })
+      );
+
+      resetForm();
+    }
+  };
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form
+      className="reviews__form form"
+      action="#"
+      method="post"
+      onSubmit={handleSubmit}
+    >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
@@ -61,7 +104,7 @@ export const FormReview: React.FC = () => {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled
+          disabled={disabled}
         >
           Submit
         </button>
