@@ -13,6 +13,9 @@ import {
   setOfferDetailIsNotFound,
   setOffers,
   setOffersIsLoading,
+  setOffersNearby,
+  setOffersNearbyIsLoading,
+  setOffersNearbyIsNotFound,
 } from './action.js';
 import {
   ApiRoute,
@@ -153,5 +156,34 @@ export const fetchOfferCommentsAction = createAsyncThunk<
     dispatch(setOfferCommentsIsNotFound(true));
   } finally {
     dispatch(setOfferCommentsIsLoading(false));
+  }
+});
+
+export const fetchOffersNearbyAction = createAsyncThunk<
+  void,
+  number | string | undefined,
+  {
+    dispatch: TAppDispatch;
+    state: TState;
+    extra: AxiosInstance;
+  }
+>('fetchOffersNearby', async (_arg, { dispatch, extra: api }) => {
+  const id = _arg;
+
+  dispatch(setOffersNearbyIsLoading(true));
+  dispatch(setOffersNearbyIsNotFound(false));
+
+  try {
+    const { data } = await api.get<TOfferItemProps[]>(
+      `${ApiRoute.Offers}/${id}/nearby`
+    );
+
+    if (data) {
+      dispatch(setOffersNearby(data));
+    }
+  } catch {
+    dispatch(setOffersNearbyIsNotFound(true));
+  } finally {
+    dispatch(setOffersNearbyIsLoading(false));
   }
 });

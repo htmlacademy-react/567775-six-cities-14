@@ -11,17 +11,17 @@ export const ReviewsList: React.FC<ReviewsListProps> = ({
 }: ReviewsListProps) => {
   useEffect(() => {
     store.dispatch(fetchOfferCommentsAction(id));
-  }, []);
+  }, [id]);
 
   const list = useAppSelector((state) => state.offerComments);
   const isLoading = useAppSelector((state) => state.offerCommentsIsLoading);
   const isNotFound = useAppSelector((state) => state.offerCommentsIsNotFound);
 
   return (
-    <>
+    <div style={{ position: 'relative' }}>
       {isLoading && <Spinner />}
       {isNotFound && <h2 className="reviews__title">No reviews</h2>}
-      {list.length && !isNotFound && !isLoading && (
+      {list.length > 0 && !isNotFound && !isLoading && (
         <>
           <h2 className="reviews__title">
             Reviews · <span className="reviews__amount">{list.length}</span>
@@ -33,6 +33,6 @@ export const ReviewsList: React.FC<ReviewsListProps> = ({
           </ul>
         </>
       )}
-    </>
+    </div>
   );
 };

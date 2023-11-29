@@ -12,6 +12,9 @@ import {
   setOfferComments,
   setOfferCommentsIsLoading,
   setOfferCommentsIsNotFound,
+  setOffersNearby,
+  setOffersNearbyIsLoading,
+  setOffersNearbyIsNotFound,
 } from './action';
 import {
   AuthorizationStatus,
@@ -40,6 +43,9 @@ const initialState: TInitState = {
   offerComments: [],
   offerCommentsIsLoading: false,
   offerCommentsIsNotFound: false,
+  offersNearby: [],
+  offersNearbyIsLoading: false,
+  offersNearbyIsNotFound: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -57,13 +63,13 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setOffers, (state, action) => {
       const offetsData = action.payload;
 
-      if (offetsData.length) {
+      if (offetsData.length > 0) {
         state.offersAll = offetsData;
       }
     })
 
     .addCase(getOffers, (state) => {
-      if (state.offersAll.length) {
+      if (state.offersAll.length > 0) {
         const offersByCity = state.offersAll.filter(
           (item) => item?.city?.name === state.cityActive
         );
@@ -108,6 +114,22 @@ const reducer = createReducer(initialState, (builder) => {
 
     .addCase(setOfferCommentsIsNotFound, (state, action) => {
       state.offerCommentsIsNotFound = action.payload;
+    })
+
+    .addCase(setOffersNearby, (state, action) => {
+      const offersNearbyData = action.payload;
+
+      if (offersNearbyData) {
+        state.offersNearby = offersNearbyData;
+      }
+    })
+
+    .addCase(setOffersNearbyIsLoading, (state, action) => {
+      state.offersNearbyIsLoading = action.payload;
+    })
+
+    .addCase(setOffersNearbyIsNotFound, (state, action) => {
+      state.offersNearbyIsNotFound = action.payload;
     });
 });
 

@@ -34,3 +34,10 @@ export const setOfferCommentsIsLoading = createAction<boolean>(
 export const setOfferCommentsIsNotFound = createAction<boolean>(
   'setOfferCommentsIsNotFound'
 );
+export const setOffersNearby = createAction<TOfferItemProps[]>('setOffersNearby');
+export const setOffersNearbyIsLoading = createAction<boolean>(
+  'setOffersNearbyIsLoading'
+);
+export const setOffersNearbyIsNotFound = createAction<boolean>(
+  'setOffersNearbyIsNotFound'
+);

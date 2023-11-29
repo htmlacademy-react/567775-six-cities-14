@@ -19,6 +19,9 @@ export type TInitState = {
   offerComments: ReviewsItemProps[];
   offerCommentsIsLoading: boolean;
   offerCommentsIsNotFound: boolean;
+  offersNearby: TOfferItemProps[];
+  offersNearbyIsLoading: boolean;
+  offersNearbyIsNotFound: boolean;
 };
 
 export type TState = ReturnType<typeof store.getState>;

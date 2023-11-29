@@ -1,12 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { FormReview } from '../../components/form-review';
 import { ReviewsList } from '../../components/reviews-list';
-import { reviewsData } from '../../mocks/reviews';
 import { Map } from '../../components/map';
-// import {
-//   otherPlacesData,
-// } from '../../mocks/other-places';
-import { ListPlaceCard } from '../../components/list-place-card';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { store } from '../../store';
@@ -16,6 +11,7 @@ import { useAppSelector } from '../../hooks/use-store';
 import { Spinner } from '../../components/spinner';
 import { ratingPercentage } from '../../helpers';
 import { AuthorizationStatus } from '../../../consts';
+import { NearPlaces } from '../../components/near-places';
 
 export const Offer: React.FC = () => {
   const { id: queryId } = useParams();
@@ -25,7 +21,7 @@ export const Offer: React.FC = () => {
 
   useEffect(() => {
     store.dispatch(fetchOfferDetailAction(queryId));
-  }, []);
+  }, [queryId]);
 
   const offerDetail = useAppSelector((state) => state.offerDetail);
   const isLoading = useAppSelector((state) => state.offerDetailIsLoading);
@@ -51,9 +47,9 @@ export const Offer: React.FC = () => {
             <section className="offer">
               <div className="offer__gallery-container container">
                 <div className="offer__gallery">
-                  {offerDetail.images.length &&
-                    offerDetail.images.map((item, index) => (
-                      <div className="offer__image-wrapper" key={index}>
+                  {offerDetail.images.length > 0 &&
+                    offerDetail.images.map((item) => (
+                      <div className="offer__image-wrapper" key={item}>
                         <img
                           className="offer__image"
                           src={item}
@@ -129,14 +125,14 @@ export const Offer: React.FC = () => {
                       <span className="offer__price-text">&nbsp;night</span>
                     </div>
                   )}
-                  {offerDetail.goods.length && (
+                  {offerDetail.goods.length > 0 && (
                     <div className="offer__inside">
                       <h2 className="offer__inside-title">
                         What&apos;s inside
                       </h2>
                       <ul className="offer__inside-list">
-                        {offerDetail.goods.map((item, index) => (
-                          <li className="offer__inside-item" key={index}>
+                        {offerDetail.goods.map((item) => (
+                          <li className="offer__inside-item" key={item}>
                             {item}
                           </li>
                         ))}
@@ -180,24 +176,17 @@ export const Offer: React.FC = () => {
                   </section>
                 </div>
               </div>
-              {mapCity && mapPoints.length && (
+              {mapCity && mapPoints.length > 0 && (
                 <section className="offer__map map">
                   <Map city={mapCity} points={mapPoints} />
                 </section>
               )}
             </section>
-            {/* <div className="container">
-              <section className="near-places places">
-                <h2 className="near-places__title">
-                  Other places in the neighbourhood
-                </h2>
-                {otherPlacesData.offers && (
-                  <div className="near-places__list places__list">
-                    {<ListPlaceCard offers={otherPlacesData.offers} />}
-                  </div>
-                )}
-              </section>
-            </div> */}
+            {queryId && (
+              <div className="container">
+                <NearPlaces id={queryId} />
+              </div>
+            )}
           </>
         )}
       </main>
