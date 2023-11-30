@@ -6,6 +6,15 @@ import {
   setOffers,
   setOffersIsLoading,
   requireAuthorization,
+  setOfferDetailIsLoading,
+  setOfferDetail,
+  setOfferDetailIsNotFound,
+  setOfferComments,
+  setOfferCommentsIsLoading,
+  setOfferCommentsIsNotFound,
+  setOffersNearby,
+  setOffersNearbyIsLoading,
+  setOffersNearbyIsNotFound,
 } from './action';
 import {
   AuthorizationStatus,
@@ -28,6 +37,15 @@ const initialState: TInitState = {
   offers: [],
   offersIsLoading: false,
   error: null,
+  offerDetail: null,
+  offerDetailIsLoading: false,
+  offerDetailIsNotFound: false,
+  offerComments: [],
+  offerCommentsIsLoading: false,
+  offerCommentsIsNotFound: false,
+  offersNearby: [],
+  offersNearbyIsLoading: false,
+  offersNearbyIsNotFound: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -45,13 +63,13 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setOffers, (state, action) => {
       const offetsData = action.payload;
 
-      if (offetsData.length) {
+      if (offetsData.length > 0) {
         state.offersAll = offetsData;
       }
     })
 
     .addCase(getOffers, (state) => {
-      if (state.offersAll.length) {
+      if (state.offersAll.length > 0) {
         const offersByCity = state.offersAll.filter(
           (item) => item?.city?.name === state.cityActive
         );
@@ -68,6 +86,50 @@ const reducer = createReducer(initialState, (builder) => {
 
     .addCase(setOffersIsLoading, (state, action) => {
       state.offersIsLoading = action.payload;
+    })
+
+    .addCase(setOfferDetail, (state, action) => {
+      const offerDetailData = action.payload;
+
+      if (offerDetailData) {
+        state.offerDetail = offerDetailData;
+      }
+    })
+
+    .addCase(setOfferDetailIsLoading, (state, action) => {
+      state.offerDetailIsLoading = action.payload;
+    })
+
+    .addCase(setOfferDetailIsNotFound, (state, action) => {
+      state.offerDetailIsNotFound = action.payload;
+    })
+
+    .addCase(setOfferComments, (state, action) => {
+      state.offerComments = action.payload;
+    })
+
+    .addCase(setOfferCommentsIsLoading, (state, action) => {
+      state.offerCommentsIsLoading = action.payload;
+    })
+
+    .addCase(setOfferCommentsIsNotFound, (state, action) => {
+      state.offerCommentsIsNotFound = action.payload;
+    })
+
+    .addCase(setOffersNearby, (state, action) => {
+      const offersNearbyData = action.payload;
+
+      if (offersNearbyData) {
+        state.offersNearby = offersNearbyData;
+      }
+    })
+
+    .addCase(setOffersNearbyIsLoading, (state, action) => {
+      state.offersNearbyIsLoading = action.payload;
+    })
+
+    .addCase(setOffersNearbyIsNotFound, (state, action) => {
+      state.offersNearbyIsNotFound = action.payload;
     });
 });
 

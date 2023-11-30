@@ -3,6 +3,7 @@ import { TCityOptions } from '../types/city';
 import { TSortingOffers } from '../types/sorting';
 import { TOfferItemProps } from '../types/offers';
 import { AppRouter, AuthorizationStatus } from '../../consts';
+import { ReviewsItemProps } from '../types/reviews';
 
 export const setCityActive = createAction<{ city: TCityOptions }>(
   'setCityActive'
@@ -18,3 +19,25 @@ export const requireAuthorization = createAction<AuthorizationStatus>(
 );
 export const setError = createAction<string | null>('setError');
 export const redirectToRoute = createAction<AppRouter>('redirectToRoute');
+export const setOfferDetail = createAction<TOfferItemProps>('setOfferDetail');
+export const setOfferDetailIsLoading = createAction<boolean>(
+  'setOfferDetailIsLoading'
+);
+export const setOfferDetailIsNotFound = createAction<boolean>(
+  'setOfferDetailIsNotFound'
+);
+export const setOfferComments =
+  createAction<ReviewsItemProps[]>('setOfferComments');
+export const setOfferCommentsIsLoading = createAction<boolean>(
+  'setOfferCommentsIsLoading'
+);
+export const setOfferCommentsIsNotFound = createAction<boolean>(
+  'setOfferCommentsIsNotFound'
+);
+export const setOffersNearby = createAction<TOfferItemProps[]>('setOffersNearby');
+export const setOffersNearbyIsLoading = createAction<boolean>(
+  'setOffersNearbyIsLoading'
+);
+export const setOffersNearbyIsNotFound = createAction<boolean>(
+  'setOffersNearbyIsNotFound'
+);

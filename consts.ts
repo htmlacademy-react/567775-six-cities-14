@@ -35,4 +35,5 @@ export const ApiRoute = {
   Favorites: '/favorites',
   Login: '/login',
   Logout: '/logout',
+  Comments: '/comments'
 } as const;

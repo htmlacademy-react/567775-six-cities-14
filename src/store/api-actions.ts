@@ -5,8 +5,17 @@ import {
   redirectToRoute,
   requireAuthorization,
   setError,
+  setOfferComments,
+  setOfferCommentsIsLoading,
+  setOfferCommentsIsNotFound,
+  setOfferDetail,
+  setOfferDetailIsLoading,
+  setOfferDetailIsNotFound,
   setOffers,
   setOffersIsLoading,
+  setOffersNearby,
+  setOffersNearbyIsLoading,
+  setOffersNearbyIsNotFound,
 } from './action.js';
 import {
   ApiRoute,
@@ -20,6 +29,8 @@ import { TAuthData } from '../types/auth-data.js';
 import { dropToken, saveToken } from '../services/token.js';
 import { TUserData } from '../types/user.js';
 import { store } from './index.js';
+import { ReviewsItemProps } from '../types/reviews.js';
+import { CommentData } from '../types/comments.js';
 
 export const fetchOffersAction = createAsyncThunk<
   void,
@@ -92,3 +103,108 @@ export const clearErrorAction = createAsyncThunk('clearError', () => {
     store.dispatch(setError(null));
   }, TIMEOUT_SHOW_ERROR);
 });
+
+export const fetchOfferDetailAction = createAsyncThunk<
+  void,
+  number | string | undefined,
+  {
+    dispatch: TAppDispatch;
+    state: TState;
+    extra: AxiosInstance;
+  }
+>('fetchOfferDetail', async (_arg, { dispatch, extra: api }) => {
+  const id = _arg;
+
+  dispatch(setOfferDetailIsLoading(true));
+  dispatch(setOfferDetailIsNotFound(false));
+
+  try {
+    const { data } = await api.get<TOfferItemProps>(`${ApiRoute.Offers}/${id}`);
+
+    if (data) {
+      dispatch(setOfferDetail(data));
+    }
+  } catch {
+    dispatch(setOfferDetailIsNotFound(true));
+  } finally {
+    dispatch(setOfferDetailIsLoading(false));
+  }
+});
+
+export const fetchOfferCommentsAction = createAsyncThunk<
+  void,
+  number | string | undefined,
+  {
+    dispatch: TAppDispatch;
+    state: TState;
+    extra: AxiosInstance;
+  }
+>('fetchOfferComments', async (_arg, { dispatch, extra: api }) => {
+  const id = _arg;
+
+  dispatch(setOfferCommentsIsLoading(true));
+  dispatch(setOfferCommentsIsNotFound(false));
+
+  try {
+    const { data } = await api.get<ReviewsItemProps[]>(
+      `${ApiRoute.Comments}/${id}`
+    );
+
+    if (data) {
+      dispatch(setOfferComments(data));
+    }
+  } catch {
+    dispatch(setOfferCommentsIsNotFound(true));
+  } finally {
+    dispatch(setOfferCommentsIsLoading(false));
+  }
+});
+
+export const fetchOffersNearbyAction = createAsyncThunk<
+  void,
+  number | string | undefined,
+  {
+    dispatch: TAppDispatch;
+    state: TState;
+    extra: AxiosInstance;
+  }
+>('fetchOffersNearby', async (_arg, { dispatch, extra: api }) => {
+  const id = _arg;
+
+  dispatch(setOffersNearbyIsLoading(true));
+  dispatch(setOffersNearbyIsNotFound(false));
+
+  try {
+    const { data } = await api.get<TOfferItemProps[]>(
+      `${ApiRoute.Offers}/${id}/nearby`
+    );
+
+    if (data) {
+      dispatch(setOffersNearby(data));
+    }
+  } catch {
+    dispatch(setOffersNearbyIsNotFound(true));
+  } finally {
+    dispatch(setOffersNearbyIsLoading(false));
+  }
+});
+
+export const submitCommentAction = createAsyncThunk<
+  void,
+  CommentData,
+  {
+    dispatch: TAppDispatch;
+    state: TState;
+    extra: AxiosInstance;
+  }
+>(
+  'submitComment',
+  async ({ id, comment, rating }, { dispatch, extra: api }) => {
+    await api.post<CommentData>(`${ApiRoute.Comments}/${id}`, {
+      comment: comment,
+      rating: rating,
+    });
+
+    dispatch(fetchOfferCommentsAction(id));
+  }
+);

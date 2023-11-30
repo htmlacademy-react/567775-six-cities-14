@@ -10,11 +10,13 @@ export function offersGroupArrayByCity(list: TOfferItemProps[]) {
   list.forEach((item) => {
     const cityName = item.city.name;
 
-    if (!groupedList[cityName]) {
-      groupedList[cityName] = [];
-    }
+    if (cityName) {
+      if (!groupedList[cityName]) {
+        groupedList[cityName] = [];
+      }
 
-    groupedList[cityName].push(item);
+      groupedList[cityName].push(item);
+    }
   });
 
   const resultList = [];
