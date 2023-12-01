@@ -3,7 +3,7 @@ import { TTabsList } from '../../types/tabs';
 import { useAppDispatch } from '../../hooks/use-store';
 import styled from './tabs.module.css';
 import { TCityOptions } from '../../types/city';
-import { setCityActive, setOffers } from '../../store/offers-proccess/offers-proccess';
+import { setCityActive, setOffers } from '../../store/offers-process/offers-process';
 
 export const TabsList: React.FC<TTabsList> = ({ list, active }: TTabsList) => {
   const dispatch = useAppDispatch();

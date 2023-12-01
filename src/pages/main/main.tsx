@@ -8,7 +8,7 @@ import { SortingSelect } from '../../components/sorting-select';
 import { Map } from '../../components/map';
 import { useState } from 'react';
 import { Spinner } from '../../components/spinner';
-import { getCityActive, getOffers, getOffersIsLoading } from '../../store/offers-proccess/selectors';
+import { getCityActive, getOffers, getOffersIsLoading } from '../../store/offers-process/selectors';
 
 /* eslint-disable react/prop-types */
 export const Main: React.FC = () => {

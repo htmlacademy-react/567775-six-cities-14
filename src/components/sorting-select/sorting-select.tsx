@@ -5,7 +5,7 @@ import { getTextById } from './helper';
 import styled from './sorting-select.module.css';
 import { useOutsideClick } from '../../hooks/use-outside-click';
 import { useAppDispatch } from '../../hooks/use-store';
-import { setOffers, setSorting } from '../../store/offers-proccess/offers-proccess';
+import { setOffers, setSorting } from '../../store/offers-process/offers-process';
 
 export const SortingSelect: React.FC<TSortingList> = ({
   list,

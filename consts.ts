@@ -41,4 +41,7 @@ export const ApiRoute = {
 export enum NameSpace {
   User = 'USER',
   Offers = 'OFFERS',
+  Offer = 'OFFER',
+  Comments = 'COMMENTS',
+  OffersNearby = 'OFFERSNEARBY',
 }

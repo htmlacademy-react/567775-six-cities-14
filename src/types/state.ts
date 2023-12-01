@@ -42,3 +42,21 @@ export type OffersProcess = {
   offers: TOfferItemProps[];
   offersIsLoading: boolean;
 };
+
+export type OfferDetailProcess = {
+  offerDetail: TOfferItemProps | null;
+  offerDetailIsLoading: boolean;
+  offerDetailIsNotFound: boolean;
+};
+
+export type OfferCommentsProcess = {
+  offerComments: ReviewsItemProps[];
+  offerCommentsIsLoading: boolean;
+  offerCommentsIsNotFound: boolean;
+};
+
+export type OffersNearbyProcess = {
+  offersNearby: TOfferItemProps[];
+  offersNearbyIsLoading: boolean;
+  offersNearbyIsNotFound: boolean;
+};

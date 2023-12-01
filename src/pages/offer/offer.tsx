@@ -5,7 +5,6 @@ import { Map } from '../../components/map';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { store } from '../../store';
-// import { fetchOfferDetailAction } from '../../store/api-actions';
 import { NotFound } from '..';
 import { useAppSelector } from '../../hooks/use-store';
 import { Spinner } from '../../components/spinner';
@@ -13,32 +12,34 @@ import { ratingPercentage } from '../../helpers';
 import { AuthorizationStatus } from '../../../consts';
 import { NearPlaces } from '../../components/near-places';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getOfferDetail, getOfferDetailIsLoading, getOfferDetailIsNotFound } from '../../store/offer-process/selectors';
+import { fetchOfferDetailAction } from '../../store/api-actions';
 
 export const Offer: React.FC = () => {
   const { id: queryId } = useParams();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
-  // useEffect(() => {
-  //   store.dispatch(fetchOfferDetailAction(queryId));
-  // }, [queryId]);
+  useEffect(() => {
+    store.dispatch(fetchOfferDetailAction(queryId));
+  }, [queryId]);
 
-  // const offerDetail = useAppSelector((state) => state.offerDetail);
-  // const isLoading = useAppSelector((state) => state.offerDetailIsLoading);
-  // const isNotFound = useAppSelector((state) => state.offerDetailIsNotFound);
+  const offerDetail = useAppSelector(getOfferDetail);
+  const isLoading = useAppSelector(getOfferDetailIsLoading);
+  const isNotFound = useAppSelector(getOfferDetailIsNotFound);
 
-  // const mapCity = offerDetail?.location
-  //   ? { location: { ...offerDetail?.location } }
-  //   : undefined;
-  // const mapPoints = offerDetail?.location
-  //   ? [{ location: { ...offerDetail?.location } }]
-  //   : [];
+  const mapCity = offerDetail?.location
+    ? { location: { ...offerDetail?.location } }
+    : undefined;
+  const mapPoints = offerDetail?.location
+    ? [{ location: { ...offerDetail?.location } }]
+    : [];
 
   return (
     <>
       <Helmet>
         <title>Offer</title>
       </Helmet>
-      {/* <main className="page__main page__main--offer">
+      <main className="page__main page__main--offer">
         {isLoading && <Spinner />}
         {isNotFound && <NotFound />}
         {offerDetail && !isNotFound && !isLoading && (
@@ -192,7 +193,7 @@ export const Offer: React.FC = () => {
             )}
           </>
         )}
-      </main> */}
+      </main>
     </>
   );
 };

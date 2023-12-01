@@ -4,6 +4,11 @@ import { fetchOffersNearbyAction } from '../../store/api-actions';
 import { useEffect } from 'react';
 import { Spinner } from '../spinner';
 import { ListPlaceCard } from '../list-place-card';
+import {
+  getOffersNearby,
+  getOffersNearbyIsLoading,
+  getOffersNearbyIsNotFound,
+} from '../../store/offers-nearby-process/selectors';
 
 export const NearPlaces: React.FC<{ id: string | number }> = ({
   id,
@@ -14,9 +19,9 @@ export const NearPlaces: React.FC<{ id: string | number }> = ({
     store.dispatch(fetchOffersNearbyAction(id));
   }, [id]);
 
-  const list = useAppSelector((state) => state.offersNearby);
-  const isLoading = useAppSelector((state) => state.offersNearbyIsLoading);
-  const isNotFound = useAppSelector((state) => state.offersNearbyIsNotFound);
+  const list = useAppSelector(getOffersNearby);
+  const isLoading = useAppSelector(getOffersNearbyIsLoading);
+  const isNotFound = useAppSelector(getOffersNearbyIsNotFound);
 
   return (
     <section className="near-places places" style={{ position: 'relative' }}>
