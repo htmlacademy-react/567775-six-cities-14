@@ -16,7 +16,7 @@ export const offersProcess = createSlice({
   name: NameSpace.Offers,
   initialState,
   reducers: {
-    getOffers(state) {
+    setOffers(state) {
       if (state.offersAll.length > 0) {
         const offersByCity = state.offersAll.filter(
           (item) => item?.city?.name === state.cityActive
@@ -35,6 +35,14 @@ export const offersProcess = createSlice({
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
         state.offersAll = action.payload;
         state.offersIsLoading = false;
+
+        offersProcess.caseReducers.setOffers(state);
+      })
+
+      .addCase(fetchOffersAction.rejected, (state) => {
+        state.offersIsLoading = false;
+
+        // offersProcess.caseReducers.getOffers();
       });
 
     // .addCase(checkAuthAction.rejected, (state) => {
@@ -52,4 +60,4 @@ export const offersProcess = createSlice({
   },
 });
 
-export const { getOffers } = offersProcess.actions;
+export const { setOffers } = offersProcess.actions;

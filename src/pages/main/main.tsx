@@ -1,17 +1,20 @@
 import { locations, placesOptions } from './helper';
 import { Helmet } from 'react-helmet-async';
-// import { ListPlaceCard } from '../../components/list-place-card';
-// import { useAppSelector } from '../../hooks/use-store';
-// import { TPoints } from '../../types/map';
-// import { TabsList } from '../../components/tabs-list';
-// import { SortingSelect } from '../../components/sorting-select';
-// import { Map } from '../../components/map';
-// import { useState } from 'react';
-// import { Spinner } from '../../components/spinner';
+import { ListPlaceCard } from '../../components/list-place-card';
+import { useAppSelector } from '../../hooks/use-store';
+import { TPoints } from '../../types/map';
+import { TabsList } from '../../components/tabs-list';
+import { SortingSelect } from '../../components/sorting-select';
+import { Map } from '../../components/map';
+import { useState } from 'react';
+import { Spinner } from '../../components/spinner';
+import { getOffers } from '../../store/offers-proccess/selectors';
 
 /* eslint-disable react/prop-types */
 export const Main: React.FC = () => {
-  // const offersData = useAppSelector((state) => state.offers);
+  const offersData = useAppSelector(getOffers);
+
+  console.log(offersData, ' offersData')
   // const cityActive = useAppSelector((state) => state.cityActive);
   // const offersIsLoading = useAppSelector((state) => state.offersIsLoading);
   // const places = offersData.length;
