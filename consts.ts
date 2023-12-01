@@ -35,5 +35,10 @@ export const ApiRoute = {
   Favorites: '/favorites',
   Login: '/login',
   Logout: '/logout',
-  Comments: '/comments'
+  Comments: '/comments',
 } as const;
+
+export enum NameSpace {
+  User = 'USER',
+  Offers = 'OFFERS',
+}

@@ -7,11 +7,10 @@ import { Header } from '../header/header';
 import { browserHistory } from '../../../browser-history';
 import { HistoryRouter } from '../history-route';
 import { useAppSelector } from '../../hooks/use-store';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 export default function App() {
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus
-  );
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   return (
     <HelmetProvider>
@@ -20,7 +19,7 @@ export default function App() {
         <Routes>
           <Route path={AppRouter.Main} element={<Main />} />
           <Route path={AppRouter.Login} element={<Login />} />
-          <Route
+          {/* <Route
             path={AppRouter.Favorites}
             element={
               <PrivateRoute authStatus={authorizationStatus}>
@@ -30,7 +29,7 @@ export default function App() {
           />
           <Route path={`${AppRouter.Offer}/:id`}>
             <Route index element={<Offer />} />
-          </Route>
+          </Route> */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </HistoryRouter>

@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
 import { AppRouter, AuthorizationStatus } from '../../../consts';
 import { useAppSelector } from '../../hooks/use-store';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 export const Header: React.FC = () => {
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus
-  );
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
 
