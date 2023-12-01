@@ -32,19 +32,6 @@ import { store } from './index.js';
 import { ReviewsItemProps } from '../types/reviews.js';
 import { CommentData } from '../types/comments.js';
 
-// export const fetchQuestionAction = createAsyncThunk<
-//   Questions,
-//   undefined,
-//   {
-//     dispatch: AppDispatch;
-//     state: State;
-//     extra: AxiosInstance;
-//   }
-// >('data/fetchQuestions', async (_arg, { extra: api }) => {
-//   const { data } = await api.get<Questions>(APIRoute.Questions);
-//   return data;
-// });
-
 export const fetchOffersAction = createAsyncThunk<
   TOfferItemProps[],
   undefined,
@@ -69,12 +56,6 @@ export const checkAuthAction = createAsyncThunk<
   }
 >('checkAuth', async (_arg, { extra: api }) => {
   await api.get(ApiRoute.Login);
-  // try {
-  //   await api.get(ApiRoute.Login);
-  //   dispatch(requireAuthorization(AuthorizationStatus.Auth));
-  // } catch {
-  //   dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
-  // }
 });
 
 // export const checkAuthAction = createAsyncThunk<void, undefined, {

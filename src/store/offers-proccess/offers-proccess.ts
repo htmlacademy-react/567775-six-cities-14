@@ -25,6 +25,16 @@ export const offersProcess = createSlice({
         state.offers = offersSorting(state.sortingBy, offersByCity);
       }
     },
+    setCityActive(state, action) {
+      const { city } = action.payload;
+
+      state.cityActive = city;
+    },
+    setSorting(state, action) {
+      const { sorting } = action.payload;
+
+      state.sortingBy = sorting;
+    },
   },
   extraReducers(builder) {
     builder
@@ -41,23 +51,8 @@ export const offersProcess = createSlice({
 
       .addCase(fetchOffersAction.rejected, (state) => {
         state.offersIsLoading = false;
-
-        // offersProcess.caseReducers.getOffers();
       });
-
-    // .addCase(checkAuthAction.rejected, (state) => {
-    //   state.authorizationStatus = AuthorizationStatus.NoAuth;
-    // })
-    // .addCase(loginAction.fulfilled, (state) => {
-    //   state.authorizationStatus = AuthorizationStatus.Auth;
-    // })
-    // .addCase(loginAction.rejected, (state) => {
-    //   state.authorizationStatus = AuthorizationStatus.NoAuth;
-    // })
-    // .addCase(logoutAction.fulfilled, (state) => {
-    //   state.authorizationStatus = AuthorizationStatus.NoAuth;
-    // });
   },
 });
 
-export const { setOffers } = offersProcess.actions;
+export const { setOffers, setCityActive, setSorting } = offersProcess.actions;

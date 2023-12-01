@@ -19,7 +19,7 @@ export default function App() {
         <Routes>
           <Route path={AppRouter.Main} element={<Main />} />
           <Route path={AppRouter.Login} element={<Login />} />
-          {/* <Route
+          <Route
             path={AppRouter.Favorites}
             element={
               <PrivateRoute authStatus={authorizationStatus}>
@@ -29,7 +29,7 @@ export default function App() {
           />
           <Route path={`${AppRouter.Offer}/:id`}>
             <Route index element={<Offer />} />
-          </Route> */}
+          </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </HistoryRouter>

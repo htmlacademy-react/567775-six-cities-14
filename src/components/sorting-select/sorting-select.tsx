@@ -5,7 +5,7 @@ import { getTextById } from './helper';
 import styled from './sorting-select.module.css';
 import { useOutsideClick } from '../../hooks/use-outside-click';
 import { useAppDispatch } from '../../hooks/use-store';
-import { getOffers, setSorting } from '../../store/action';
+import { setOffers, setSorting } from '../../store/offers-proccess/offers-proccess';
 
 export const SortingSelect: React.FC<TSortingList> = ({
   list,
@@ -34,7 +34,7 @@ export const SortingSelect: React.FC<TSortingList> = ({
     setOpenMenu(false);
 
     dispatch(setSorting({ sorting: id }));
-    dispatch(getOffers());
+    dispatch(setOffers());
   };
 
   return (

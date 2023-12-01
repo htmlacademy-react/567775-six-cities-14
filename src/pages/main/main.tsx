@@ -8,39 +8,37 @@ import { SortingSelect } from '../../components/sorting-select';
 import { Map } from '../../components/map';
 import { useState } from 'react';
 import { Spinner } from '../../components/spinner';
-import { getOffers } from '../../store/offers-proccess/selectors';
+import { getCityActive, getOffers, getOffersIsLoading } from '../../store/offers-proccess/selectors';
 
 /* eslint-disable react/prop-types */
 export const Main: React.FC = () => {
   const offersData = useAppSelector(getOffers);
+  const cityActive = useAppSelector(getCityActive);
+  const offersIsLoading = useAppSelector(getOffersIsLoading);
+  const places = offersData.length;
+  const mapDataCity = offersData[0]?.city;
+  const mapDataPointsNew: TPoints[] = [];
+  const [selectedId, setSelectedId] = useState<number | undefined>(undefined);
 
-  console.log(offersData, ' offersData')
-  // const cityActive = useAppSelector((state) => state.cityActive);
-  // const offersIsLoading = useAppSelector((state) => state.offersIsLoading);
-  // const places = offersData.length;
-  // const mapDataCity = offersData[0]?.city;
-  // const mapDataPointsNew: TPoints[] = [];
-  // const [selectedId, setSelectedId] = useState<number | undefined>(undefined);
+  const onHover = (value: number | undefined) => {
+    setSelectedId(value);
+  };
 
-  // const onHover = (value: number | undefined) => {
-  //   setSelectedId(value);
-  // };
-
-  // offersData.forEach((elem) => {
-  //   if (elem?.location) {
-  //     mapDataPointsNew.push({
-  //       location: { ...elem.location },
-  //       name: cityActive,
-  //     });
-  //   }
-  // });
+  offersData.forEach((elem) => {
+    if (elem?.location) {
+      mapDataPointsNew.push({
+        location: { ...elem.location },
+        name: cityActive,
+      });
+    }
+  });
 
   return (
     <>
       <Helmet>
         <title>Main</title>
       </Helmet>
-      {/* <main className="page__main page__main--index">
+      <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <TabsList list={locations.list} active={cityActive} />
         <div className="cities">
@@ -71,7 +69,7 @@ export const Main: React.FC = () => {
             </div>
           </div>
         </div>
-      </main> */}
+      </main>
     </>
   );
 };

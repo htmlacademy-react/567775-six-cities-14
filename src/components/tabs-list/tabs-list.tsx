@@ -1,16 +1,16 @@
 import classNames from 'classnames';
 import { TTabsList } from '../../types/tabs';
 import { useAppDispatch } from '../../hooks/use-store';
-import { getOffers, setCityActive } from '../../store/action';
 import styled from './tabs.module.css';
 import { TCityOptions } from '../../types/city';
+import { setCityActive, setOffers } from '../../store/offers-proccess/offers-proccess';
 
 export const TabsList: React.FC<TTabsList> = ({ list, active }: TTabsList) => {
   const dispatch = useAppDispatch();
 
   const handleClick = (id: TCityOptions) => {
     dispatch(setCityActive({ city: id }));
-    dispatch(getOffers());
+    dispatch(setOffers());
   };
 
   return (
