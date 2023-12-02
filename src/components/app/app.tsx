@@ -7,11 +7,10 @@ import { Header } from '../header/header';
 import { browserHistory } from '../../../browser-history';
 import { HistoryRouter } from '../history-route';
 import { useAppSelector } from '../../hooks/use-store';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 export default function App() {
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus
-  );
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   return (
     <HelmetProvider>

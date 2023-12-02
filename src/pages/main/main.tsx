@@ -8,12 +8,13 @@ import { SortingSelect } from '../../components/sorting-select';
 import { Map } from '../../components/map';
 import { useState } from 'react';
 import { Spinner } from '../../components/spinner';
+import { getCityActive, getOffers, getOffersIsLoading } from '../../store/offers-process/selectors';
 
 /* eslint-disable react/prop-types */
 export const Main: React.FC = () => {
-  const offersData = useAppSelector((state) => state.offers);
-  const cityActive = useAppSelector((state) => state.cityActive);
-  const offersIsLoading = useAppSelector((state) => state.offersIsLoading);
+  const offersData = useAppSelector(getOffers);
+  const cityActive = useAppSelector(getCityActive);
+  const offersIsLoading = useAppSelector(getOffersIsLoading);
   const places = offersData.length;
   const mapDataCity = offersData[0]?.city;
   const mapDataPointsNew: TPoints[] = [];

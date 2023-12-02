@@ -5,24 +5,39 @@ import { TOfferItemProps } from './offers';
 import { ReviewsItemProps } from './reviews';
 import { TSortingOffers } from './sorting';
 
-export type TInitState = {
+export type TState = ReturnType<typeof store.getState>;
+export type TAppDispatch = typeof store.dispatch;
+
+export type UserProcess = {
   authorizationStatus: AuthorizationStatus;
+};
+
+export type OffersProcess = {
   cityActive: TCityOptions;
   sortingBy: TSortingOffers;
   offersAll: TOfferItemProps[];
   offers: TOfferItemProps[];
   offersIsLoading: boolean;
-  error: string | null;
+};
+
+export type OfferDetailProcess = {
   offerDetail: TOfferItemProps | null;
   offerDetailIsLoading: boolean;
   offerDetailIsNotFound: boolean;
+};
+
+export type OfferCommentsProcess = {
   offerComments: ReviewsItemProps[];
   offerCommentsIsLoading: boolean;
   offerCommentsIsNotFound: boolean;
+};
+
+export type OffersNearbyProcess = {
   offersNearby: TOfferItemProps[];
   offersNearbyIsLoading: boolean;
   offersNearbyIsNotFound: boolean;
 };
 
-export type TState = ReturnType<typeof store.getState>;
-export type TAppDispatch = typeof store.dispatch;
+export type ErrorMessageProcess = {
+  errorMessage: string | null;
+};

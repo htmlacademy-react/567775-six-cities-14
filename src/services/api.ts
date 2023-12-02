@@ -6,7 +6,7 @@ import axios, {
 } from 'axios';
 import { StatusCodes } from 'http-status-codes';
 import { getToket } from './token';
-import { proccessErrorHandle } from './proccess-error-handle';
+import { processErrorHandle } from './process-error-handle';
 
 const API_URL = 'https://14.design.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;
@@ -38,9 +38,9 @@ export const createAPI = (): AxiosInstance => {
 
   api.interceptors.response.use(
     (response) => response,
-    (error: AxiosError<{ error: string }>) => {
+    (error: AxiosError<{ message: string }>) => {
       if (error.response && shouldDisplayError(error.response)) {
-        proccessErrorHandle(error.response.data.error);
+        processErrorHandle(error.response.data.message);
       }
 
       throw error;

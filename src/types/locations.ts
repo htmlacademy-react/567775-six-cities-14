@@ -4,7 +4,7 @@ export type TLocation = {
   latitude: number;
   longitude: number;
   zoom: number;
-  id?: number;
+  id?: number | string;
 };
 
 export type TLocationsItemsProps = {

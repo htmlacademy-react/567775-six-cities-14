@@ -28,12 +28,21 @@ export const CITY_LIST = {
 
 export const DEFAULT_CITY = CITY_LIST.Paris;
 export const DEFAULT_SORTING = 'popular';
-export const TIMEOUT_SHOW_ERROR = 2000;
+export const TIME_HIDE_ERROR_MESSAGE = 2000;
 
 export const ApiRoute = {
   Offers: '/offers',
   Favorites: '/favorites',
   Login: '/login',
   Logout: '/logout',
-  Comments: '/comments'
+  Comments: '/comments',
 } as const;
+
+export enum NameSpace {
+  User = 'USER',
+  Offers = 'OFFERS',
+  Offer = 'OFFER',
+  Comments = 'COMMENTS',
+  OffersNearby = 'OFFERSNEARBY',
+  ErrorMessage = 'ERRORMESSAGE'
+}

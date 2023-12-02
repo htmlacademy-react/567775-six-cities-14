@@ -5,6 +5,11 @@ import { ReviewsListProps } from '../../types/reviews';
 import { ReviewsItem } from '../reviews-item';
 import { useEffect } from 'react';
 import { Spinner } from '../spinner';
+import {
+  getOfferComments,
+  getOfferofferCommentsIsNotFound,
+  getofferCommentsIsLoading,
+} from '../../store/offer-comments-process/selectors';
 
 export const ReviewsList: React.FC<ReviewsListProps> = ({
   id,
@@ -13,9 +18,9 @@ export const ReviewsList: React.FC<ReviewsListProps> = ({
     store.dispatch(fetchOfferCommentsAction(id));
   }, [id]);
 
-  const list = useAppSelector((state) => state.offerComments);
-  const isLoading = useAppSelector((state) => state.offerCommentsIsLoading);
-  const isNotFound = useAppSelector((state) => state.offerCommentsIsNotFound);
+  const list = useAppSelector(getOfferComments);
+  const isLoading = useAppSelector(getofferCommentsIsLoading);
+  const isNotFound = useAppSelector(getOfferofferCommentsIsNotFound);
 
   return (
     <div style={{ position: 'relative' }}>
