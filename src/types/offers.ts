@@ -3,7 +3,7 @@ import { THost } from './host';
 import { TLocation } from './locations';
 
 export type TOfferOnHover = {
-  onHover?(id: number | undefined): void;
+  onHover?(id: number | string | undefined): void;
 };
 
 export type TOfferItemProps = {

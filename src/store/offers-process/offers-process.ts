@@ -25,16 +25,24 @@ export const offersProcess = createSlice({
           (item) => item?.city?.name === state.cityActive
         );
 
-        state.offers = offersSorting(state.sortingBy, offersByCity);
+        const offersByCityAddLocationId = offersByCity.map((item) => ({
+          ...item,
+          location: { ...item.location, id: item.id },
+        }));
+
+        state.offers = offersSorting(
+          state.sortingBy,
+          offersByCityAddLocationId
+        );
       }
     },
 
-    setCityActive(state, action: PayloadAction<{city: TCityOptions}>) {
+    setCityActive(state, action: PayloadAction<{ city: TCityOptions }>) {
       const { city } = action.payload;
 
       state.cityActive = city;
     },
-    setSorting(state, action: PayloadAction<{sorting: TSortingOffers}>) {
+    setSorting(state, action: PayloadAction<{ sorting: TSortingOffers }>) {
       const { sorting } = action.payload;
 
       state.sortingBy = sorting;
@@ -46,12 +54,15 @@ export const offersProcess = createSlice({
         state.offersIsLoading = true;
       })
 
-      .addCase(fetchOffersAction.fulfilled, (state, action: PayloadAction<TOfferItemProps[]>) => {
-        state.offersAll = action.payload;
-        state.offersIsLoading = false;
+      .addCase(
+        fetchOffersAction.fulfilled,
+        (state, action: PayloadAction<TOfferItemProps[]>) => {
+          state.offersAll = action.payload;
+          state.offersIsLoading = false;
 
-        offersProcess.caseReducers.setOffers(state);
-      })
+          offersProcess.caseReducers.setOffers(state);
+        }
+      )
 
       .addCase(fetchOffersAction.rejected, (state) => {
         state.offersIsLoading = false;
