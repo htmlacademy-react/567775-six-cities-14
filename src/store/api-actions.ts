@@ -1,34 +1,12 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import {
-  // getOffers,
-  redirectToRoute,
-  // requireAuthorization,
-  // setError,
-  // setOfferComments,
-  // setOfferCommentsIsLoading,
-  // setOfferCommentsIsNotFound,
-  // setOfferDetail,
-  // setOfferDetailIsLoading,
-  // setOfferDetailIsNotFound,
-  // setOffers,
-  // setOffersIsLoading,
-  // setOffersNearby,
-  // setOffersNearbyIsLoading,
-  // setOffersNearbyIsNotFound,
-} from './action.js';
-import {
-  ApiRoute,
-  AppRouter,
-  AuthorizationStatus,
-  TIMEOUT_SHOW_ERROR,
-} from '../../consts.js';
+import { redirectToRoute } from './action.js';
+import { ApiRoute, AppRouter } from '../../consts.js';
 import { TAppDispatch, TState } from '../types/state.js';
 import { TOfferItemProps } from '../types/offers.js';
 import { TAuthData } from '../types/auth-data.js';
 import { dropToken, saveToken } from '../services/token.js';
 import { TUserData } from '../types/user.js';
-import { store } from './index.js';
 import { ReviewsItemProps } from '../types/reviews.js';
 import { CommentData } from '../types/comments.js';
 
@@ -146,19 +124,21 @@ export const fetchOffersNearbyAction = createAsyncThunk<
 });
 
 export const submitCommentAction = createAsyncThunk<
-  void,
+  ReviewsItemProps,
   CommentData,
   {
     dispatch: TAppDispatch;
     state: TState;
     extra: AxiosInstance;
   }
->(
-  'submitComment',
-  async ({ id, comment, rating }, { extra: api }) => {
-    await api.post<CommentData>(`${ApiRoute.Comments}/${id}`, {
-      comment: comment,
-      rating: rating,
-    });
-  }
-);
+>('submitComment', async (commentPost: CommentData, { extra: api }) => {
+  const { data } = await api.post<ReviewsItemProps>(
+    `${ApiRoute.Comments}/${commentPost.id}`,
+    {
+      comment: commentPost.comment,
+      rating: commentPost.rating,
+    }
+  );
+
+  return data;
+});

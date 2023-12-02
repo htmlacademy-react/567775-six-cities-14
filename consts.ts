@@ -28,7 +28,7 @@ export const CITY_LIST = {
 
 export const DEFAULT_CITY = CITY_LIST.Paris;
 export const DEFAULT_SORTING = 'popular';
-export const TIMEOUT_SHOW_ERROR = 2000;
+export const TIME_HIDE_ERROR_MESSAGE = 2000;
 
 export const ApiRoute = {
   Offers: '/offers',
@@ -44,4 +44,5 @@ export enum NameSpace {
   Offer = 'OFFER',
   Comments = 'COMMENTS',
   OffersNearby = 'OFFERSNEARBY',
+  ErrorMessage = 'ERRORMESSAGE'
 }

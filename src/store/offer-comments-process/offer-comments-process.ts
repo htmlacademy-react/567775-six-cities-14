@@ -35,7 +35,10 @@ export const offerComments = createSlice({
         state.offerCommentsIsNotFound = true;
       })
 
-      .addCase(submitCommentAction.fulfilled, (state) => {
-      })
+      .addCase(submitCommentAction.fulfilled, (state, action) => {
+        const newComment = action.payload;
+
+        state.offerComments.push(newComment);
+      });
   },
 });

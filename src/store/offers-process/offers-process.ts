@@ -1,8 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { OffersProcess } from '../../types/state';
 import { fetchOffersAction } from '../api-actions';
 import { DEFAULT_CITY, DEFAULT_SORTING, NameSpace } from '../../../consts';
 import { offersSorting } from '../../helpers';
+import { TCityOptions } from '../../types/city';
+import { TSortingOffers } from '../../types/sorting';
+import { TOfferItemProps } from '../../types/offers';
 
 const initialState: OffersProcess = {
   cityActive: DEFAULT_CITY,
@@ -25,12 +28,13 @@ export const offersProcess = createSlice({
         state.offers = offersSorting(state.sortingBy, offersByCity);
       }
     },
-    setCityActive(state, action) {
+
+    setCityActive(state, action: PayloadAction<{city: TCityOptions}>) {
       const { city } = action.payload;
 
       state.cityActive = city;
     },
-    setSorting(state, action) {
+    setSorting(state, action: PayloadAction<{sorting: TSortingOffers}>) {
       const { sorting } = action.payload;
 
       state.sortingBy = sorting;
@@ -42,7 +46,7 @@ export const offersProcess = createSlice({
         state.offersIsLoading = true;
       })
 
-      .addCase(fetchOffersAction.fulfilled, (state, action) => {
+      .addCase(fetchOffersAction.fulfilled, (state, action: PayloadAction<TOfferItemProps[]>) => {
         state.offersAll = action.payload;
         state.offersIsLoading = false;
 
