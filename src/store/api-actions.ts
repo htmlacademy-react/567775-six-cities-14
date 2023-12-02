@@ -9,6 +9,9 @@ import { dropToken, saveToken } from '../services/token.js';
 import { TUserData } from '../types/user.js';
 import { ReviewsItemProps } from '../types/reviews.js';
 import { CommentData } from '../types/comments.js';
+import { FavoriteData } from '../types/favorites.js';
+import { setFavoriteOffer } from './offers-process/offers-process.js';
+import { setFavoriteOfferDetail } from './offer-process/offer-process.js';
 
 export const fetchOffersAction = createAsyncThunk<
   TOfferItemProps[],
@@ -49,6 +52,8 @@ export const loginAction = createAsyncThunk<
     data: { token },
   } = await api.post<TUserData>(ApiRoute.Login, { email, password });
   saveToken(token);
+  dispatch(fetchOffersAction());
+  dispatch(fetchFavoritesAction());
   dispatch(redirectToRoute(AppRouter.Main));
 });
 
@@ -60,16 +65,11 @@ export const logoutAction = createAsyncThunk<
     state: TState;
     extra: AxiosInstance;
   }
->('logout', async (_arg, { extra: api }) => {
+>('logout', async (_arg, { dispatch, extra: api }) => {
   await api.delete(ApiRoute.Logout);
   dropToken();
+  dispatch(fetchOffersAction());
 });
-
-// export const clearErrorAction = createAsyncThunk('clearError', () => {
-//   setTimeout(() => {
-//     store.dispatch(setError(null));
-//   }, TIMEOUT_SHOW_ERROR);
-// });
 
 export const fetchOfferDetailAction = createAsyncThunk<
   TOfferItemProps,
@@ -142,3 +142,39 @@ export const submitCommentAction = createAsyncThunk<
 
   return data;
 });
+
+export const fetchFavoritesAction = createAsyncThunk<
+  TOfferItemProps[],
+  undefined,
+  {
+    dispatch: TAppDispatch;
+    state: TState;
+    extra: AxiosInstance;
+  }
+>('fetchFavorites', async (_arg, { extra: api }) => {
+  const { data } = await api.get<TOfferItemProps[]>(ApiRoute.Favorites);
+
+  return data;
+});
+
+export const setFavoritesAction = createAsyncThunk<
+  TOfferItemProps,
+  FavoriteData,
+  {
+    dispatch: TAppDispatch;
+    state: TState;
+    extra: AxiosInstance;
+  }
+>(
+  'setFavorites',
+  async (favoritePost: FavoriteData, { dispatch, extra: api }) => {
+    const { data } = await api.post<TOfferItemProps>(
+      `${ApiRoute.Favorites}/${favoritePost.offerId}/${favoritePost.status}`
+    );
+
+    dispatch(setFavoriteOffer(data));
+    dispatch(setFavoriteOfferDetail(data.isFavorite));
+
+    return data;
+  }
+);

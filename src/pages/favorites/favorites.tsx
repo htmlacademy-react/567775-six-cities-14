@@ -1,10 +1,13 @@
 import { Helmet } from 'react-helmet-async';
 import { LocationsItems } from '../../components/locations-items';
-import { favoritesData } from '../../mocks/favorites';
 import { offersGroupArrayByCity } from '../../helpers';
+import { useAppSelector } from '../../hooks/use-store';
+import { getFavorites } from '../../store/favorites-process/selectors';
 
 export const Favorites: React.FC = () => {
-  const groupedFavorites = offersGroupArrayByCity(favoritesData.favorites);
+  const favoritesData = useAppSelector(getFavorites);
+  const groupedFavorites =
+    favoritesData.length > 0 ? offersGroupArrayByCity(favoritesData) : [];
 
   return (
     <>

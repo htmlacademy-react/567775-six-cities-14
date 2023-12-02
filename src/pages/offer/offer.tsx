@@ -12,8 +12,14 @@ import { ratingPercentage } from '../../helpers';
 import { AuthorizationStatus } from '../../../consts';
 import { NearPlaces } from '../../components/near-places';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
-import { getOfferDetail, getOfferDetailIsLoading, getOfferDetailIsNotFound } from '../../store/offer-process/selectors';
+import {
+  getOfferDetail,
+  getOfferDetailIsLoading,
+  getOfferDetailIsNotFound,
+} from '../../store/offer-process/selectors';
 import { fetchOfferDetailAction } from '../../store/api-actions';
+import classNames from 'classnames';
+import { useFavorites } from '../../hooks/use-favorites';
 
 export const Offer: React.FC = () => {
   const { id: queryId } = useParams();
@@ -33,6 +39,9 @@ export const Offer: React.FC = () => {
   const mapPoints = offerDetail?.location
     ? [{ location: { ...offerDetail?.location } }]
     : [];
+
+  const currentStatus = offerDetail && offerDetail.isFavorite ? 0 : 1;
+  const onChangeFavorites = useFavorites(String(queryId), currentStatus);
 
   return (
     <>
@@ -71,13 +80,20 @@ export const Offer: React.FC = () => {
                       <h1 className="offer__name">{offerDetail.title}</h1>
                     )}
                     <button
-                      className="offer__bookmark-button button"
+                      className={classNames(
+                        {
+                          'offer__bookmark-button--active':
+                            offerDetail.isFavorite,
+                        },
+                        'offer__bookmark-button button'
+                      )}
                       type="button"
+                      onClick={onChangeFavorites}
                     >
                       <svg
                         className="offer__bookmark-icon"
-                        width={31}
-                        height={33}
+                        width={18}
+                        height={19}
                       >
                         <use xlinkHref="#icon-bookmark" />
                       </svg>

@@ -32,7 +32,7 @@ export const TIME_HIDE_ERROR_MESSAGE = 2000;
 
 export const ApiRoute = {
   Offers: '/offers',
-  Favorites: '/favorites',
+  Favorites: '/favorite',
   Login: '/login',
   Logout: '/logout',
   Comments: '/comments',
@@ -44,5 +44,6 @@ export enum NameSpace {
   Offer = 'OFFER',
   Comments = 'COMMENTS',
   OffersNearby = 'OFFERSNEARBY',
-  ErrorMessage = 'ERRORMESSAGE'
+  ErrorMessage = 'ERRORMESSAGE',
+  Favorites = 'FAVORITES',
 }

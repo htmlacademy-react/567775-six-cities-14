@@ -8,13 +8,21 @@ import { SortingSelect } from '../../components/sorting-select';
 import { Map } from '../../components/map';
 import { useState } from 'react';
 import { Spinner } from '../../components/spinner';
-import { getCityActive, getOffers, getOffersIsLoading } from '../../store/offers-process/selectors';
+import {
+  getCityActive,
+  getOffers,
+  getOffersIsLoading,
+  getOffersIsNoResult,
+} from '../../store/offers-process/selectors';
+import { CitiesNoResult } from '../../components/cities-no-result';
+import classNames from 'classnames';
 
 /* eslint-disable react/prop-types */
 export const Main: React.FC = () => {
   const offersData = useAppSelector(getOffers);
   const cityActive = useAppSelector(getCityActive);
   const offersIsLoading = useAppSelector(getOffersIsLoading);
+  const offersIsNoResult = useAppSelector(getOffersIsNoResult);
   const places = offersData.length;
   const mapDataCity = offersData[0]?.city;
   const mapDataPointsNew: TPoints[] = [];
@@ -38,24 +46,42 @@ export const Main: React.FC = () => {
       <Helmet>
         <title>Main</title>
       </Helmet>
-      <main className="page__main page__main--index">
+      <main
+        className={classNames(
+          { 'page__main--index-empty': offersIsNoResult },
+          'page__main page__main--index'
+        )}
+      >
         <h1 className="visually-hidden">Cities</h1>
         <TabsList list={locations.list} active={cityActive} />
         <div className="cities">
-          <div className="cities__places-container container">
+          <div
+            className={classNames(
+              { 'cities__places-container--empty': offersIsNoResult },
+              'cities__places-container container'
+            )}
+          >
             {offersIsLoading && <Spinner />}
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">
-                {`${places} places to stay in ${cityActive}`}
-              </b>
-              {!!places && <SortingSelect list={placesOptions} />}
-              {offersData && (
-                <div className="cities__places-list places__list tabs__content">
-                  {<ListPlaceCard offers={offersData} onHover={onHover} />}
-                </div>
-              )}
-            </section>
+            {offersIsNoResult ? (
+              <CitiesNoResult />
+            ) : (
+              <section className="cities__places places">
+                {!!places && (
+                  <>
+                    <h2 className="visually-hidden">Places</h2>
+                    <b className="places__found">
+                      {`${places} places to stay in ${cityActive}`}
+                    </b>
+                    <SortingSelect list={placesOptions} />
+                  </>
+                )}
+                {offersData.length > 0 && (
+                  <div className="cities__places-list places__list tabs__content">
+                    {<ListPlaceCard offers={offersData} onHover={onHover} />}
+                  </div>
+                )}
+              </section>
+            )}
             <div className="cities__right-section">
               {!!mapDataPointsNew.length && (
                 <section className="cities__map map">
