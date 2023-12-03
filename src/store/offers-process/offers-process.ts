@@ -13,6 +13,7 @@ const initialState: OffersProcess = {
   offersAll: [],
   offers: [],
   offersIsLoading: false,
+  offersIsNoResult: false,
 };
 
 export const offersProcess = createSlice({
@@ -42,10 +43,19 @@ export const offersProcess = createSlice({
 
       state.cityActive = city;
     },
+
     setSorting(state, action: PayloadAction<{ sorting: TSortingOffers }>) {
       const { sorting } = action.payload;
 
       state.sortingBy = sorting;
+    },
+
+    setFavoriteOffer(state, action: PayloadAction<TOfferItemProps>) {
+      const offerFavorite = action.payload;
+
+      state.offers = state.offers.map((item: TOfferItemProps) =>
+        item.id === offerFavorite.id ? offerFavorite : item
+      );
     },
   },
   extraReducers(builder) {
@@ -61,13 +71,18 @@ export const offersProcess = createSlice({
           state.offersIsLoading = false;
 
           offersProcess.caseReducers.setOffers(state);
+
+          if (state.offersAll.length < 1) {
+            state.offersIsNoResult = true;
+          }
         }
       )
 
       .addCase(fetchOffersAction.rejected, (state) => {
         state.offersIsLoading = false;
+        state.offersIsNoResult = true;
       });
   },
 });
 
-export const { setOffers, setCityActive, setSorting } = offersProcess.actions;
+export const { setOffers, setCityActive, setSorting, setFavoriteOffer } = offersProcess.actions;

@@ -18,6 +18,7 @@ export type OffersProcess = {
   offersAll: TOfferItemProps[];
   offers: TOfferItemProps[];
   offersIsLoading: boolean;
+  offersIsNoResult: boolean;
 };
 
 export type OfferDetailProcess = {
@@ -40,4 +41,10 @@ export type OffersNearbyProcess = {
 
 export type ErrorMessageProcess = {
   errorMessage: string | null;
+};
+
+export type favoritesProcess = {
+  favorites: TOfferItemProps[];
+  favoritesIsLoading: boolean;
+  favoritesIsNotFound: boolean;
 };

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace } from '../../../consts';
 import { OfferDetailProcess } from '../../types/state';
 import { fetchOfferDetailAction } from '../api-actions';
@@ -12,7 +12,13 @@ const initialState: OfferDetailProcess = {
 export const offerProcess = createSlice({
   name: NameSpace.Offer,
   initialState,
-  reducers: {},
+  reducers: {
+    setFavoriteOfferDetail(state, action: PayloadAction<boolean>) {
+      if (state.offerDetail) {
+        state.offerDetail.isFavorite = action.payload;
+      }
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchOfferDetailAction.pending, (state) => {
@@ -36,3 +42,5 @@ export const offerProcess = createSlice({
       });
   },
 });
+
+export const { setFavoriteOfferDetail } = offerProcess.actions;

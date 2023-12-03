@@ -32,7 +32,7 @@ export const NearPlaces: React.FC<{ id: string | number }> = ({
       )}
       {list.length > 0 && !isNotFound && !isLoading && (
         <div className="near-places__list places__list">
-          {<ListPlaceCard offers={list} />}
+          {<ListPlaceCard offers={list} isNearby />}
         </div>
       )}
     </section>
