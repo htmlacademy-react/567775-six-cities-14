@@ -9,7 +9,7 @@ import { NotFound } from '..';
 import { useAppSelector } from '../../hooks/use-store';
 import { Spinner } from '../../components/spinner';
 import { ratingPercentage } from '../../helpers';
-import { AuthorizationStatus } from '../../../consts';
+import { AuthorizationStatus, FavoritesTriggerUpdate } from '../../../consts';
 import { NearPlaces } from '../../components/near-places';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import {
@@ -41,7 +41,11 @@ export const Offer: React.FC = () => {
     : [];
 
   const currentStatus = offerDetail && offerDetail.isFavorite ? 0 : 1;
-  const onChangeFavorites = useFavorites(String(queryId), currentStatus);
+  const onChangeFavorites = useFavorites(
+    String(queryId),
+    currentStatus,
+    FavoritesTriggerUpdate.OfferDetail
+  );
 
   return (
     <>

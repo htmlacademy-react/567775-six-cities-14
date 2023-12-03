@@ -1,7 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace } from '../../../consts';
 import { OffersNearbyProcess } from '../../types/state';
 import { fetchOffersNearbyAction } from '../api-actions';
+import { TOfferItemProps } from '../../types/offers';
 
 const initialState: OffersNearbyProcess = {
   offersNearby: [],
@@ -12,7 +13,15 @@ const initialState: OffersNearbyProcess = {
 export const offersNearby = createSlice({
   name: NameSpace.OffersNearby,
   initialState,
-  reducers: {},
+  reducers: {
+    setFavoriteNearby(state, action: PayloadAction<TOfferItemProps>) {
+      const nearbyFavorite = action.payload;
+
+      state.offersNearby = state.offersNearby.map((item: TOfferItemProps) =>
+        item.id === nearbyFavorite.id ? nearbyFavorite : item
+      );
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchOffersNearbyAction.pending, (state) => {
@@ -24,7 +33,7 @@ export const offersNearby = createSlice({
         const offerNearbyData = action.payload;
 
         if (offerNearbyData.length > 0) {
-          state.offersNearby = offerNearbyData;
+          state.offersNearby = [...offerNearbyData].slice(0, 3);
         }
 
         state.offersNearbyIsLoading = false;
@@ -36,3 +45,5 @@ export const offersNearby = createSlice({
       });
   },
 });
+
+export const { setFavoriteNearby } = offersNearby.actions;

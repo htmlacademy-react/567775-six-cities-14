@@ -1,3 +1,4 @@
+import { FavoritesTriggerUpdate } from '../../consts';
 import { TOfferItemProps } from './offers';
 
 export type TFavoritesProps = {
@@ -7,4 +8,5 @@ export type TFavoritesProps = {
 export type FavoriteData = {
   offerId: string;
   status: number;
+  triggerUpdate: FavoritesTriggerUpdate;
 };

@@ -1,6 +1,7 @@
 import { TCity } from './city';
 import { THost } from './host';
 import { TLocation } from './locations';
+import { PlaceCardIsNearby } from './place-card';
 
 export type TOfferOnHover = {
   onHover?(id: number | string | undefined): void;
@@ -27,4 +28,4 @@ export type TOfferItemProps = {
 
 export type TOffersProps = {
   offers: TOfferItemProps[];
-} & TOfferOnHover;
+} & TOfferOnHover & PlaceCardIsNearby

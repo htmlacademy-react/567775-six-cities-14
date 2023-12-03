@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { TPlaceCardProps } from '../../types/place-card';
 import { Link } from 'react-router-dom';
-import { AppRouter } from '../../../consts';
+import { AppRouter, FavoritesTriggerUpdate } from '../../../consts';
 import { ratingPercentage } from '../../helpers';
 import { useFavorites } from '../../hooks/use-favorites';
 
@@ -16,10 +16,15 @@ export const PlaceCard: React.FC<TPlaceCardProps> = ({
   id,
   location,
   onHover,
+  isNearby,
 }: TPlaceCardProps) => {
   const currentStatus = isFavorite ? 0 : 1;
 
-  const onChangeFavorites = useFavorites(String(id), currentStatus);
+  const onChangeFavorites = useFavorites(
+    String(id),
+    currentStatus,
+    isNearby ? FavoritesTriggerUpdate.Nearby : FavoritesTriggerUpdate.Offers
+  );
 
   return (
     <article

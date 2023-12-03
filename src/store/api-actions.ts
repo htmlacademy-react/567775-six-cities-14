@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { redirectToRoute } from './action.js';
-import { ApiRoute, AppRouter } from '../../consts.js';
+import { ApiRoute, AppRouter, FavoritesTriggerUpdate } from '../../consts.js';
 import { TAppDispatch, TState } from '../types/state.js';
 import { TOfferItemProps } from '../types/offers.js';
 import { TAuthData } from '../types/auth-data.js';
@@ -12,6 +12,21 @@ import { CommentData } from '../types/comments.js';
 import { FavoriteData } from '../types/favorites.js';
 import { setFavoriteOffer } from './offers-process/offers-process.js';
 import { setFavoriteOfferDetail } from './offer-process/offer-process.js';
+import { setFavoriteNearby } from './offers-nearby-process/offers-nearby-process.js';
+
+export const fetchFavoritesAction = createAsyncThunk<
+  TOfferItemProps[],
+  undefined,
+  {
+    dispatch: TAppDispatch;
+    state: TState;
+    extra: AxiosInstance;
+  }
+>('fetchFavorites', async (_arg, { extra: api }) => {
+  const { data } = await api.get<TOfferItemProps[]>(ApiRoute.Favorites);
+
+  return data;
+});
 
 export const fetchOffersAction = createAsyncThunk<
   TOfferItemProps[],
@@ -52,7 +67,6 @@ export const loginAction = createAsyncThunk<
     data: { token },
   } = await api.post<TUserData>(ApiRoute.Login, { email, password });
   saveToken(token);
-  dispatch(fetchOffersAction());
   dispatch(fetchFavoritesAction());
   dispatch(redirectToRoute(AppRouter.Main));
 });
@@ -65,10 +79,9 @@ export const logoutAction = createAsyncThunk<
     state: TState;
     extra: AxiosInstance;
   }
->('logout', async (_arg, { dispatch, extra: api }) => {
+>('logout', async (_arg, { extra: api }) => {
   await api.delete(ApiRoute.Logout);
   dropToken();
-  dispatch(fetchOffersAction());
 });
 
 export const fetchOfferDetailAction = createAsyncThunk<
@@ -143,20 +156,6 @@ export const submitCommentAction = createAsyncThunk<
   return data;
 });
 
-export const fetchFavoritesAction = createAsyncThunk<
-  TOfferItemProps[],
-  undefined,
-  {
-    dispatch: TAppDispatch;
-    state: TState;
-    extra: AxiosInstance;
-  }
->('fetchFavorites', async (_arg, { extra: api }) => {
-  const { data } = await api.get<TOfferItemProps[]>(ApiRoute.Favorites);
-
-  return data;
-});
-
 export const setFavoritesAction = createAsyncThunk<
   TOfferItemProps,
   FavoriteData,
@@ -167,13 +166,25 @@ export const setFavoritesAction = createAsyncThunk<
   }
 >(
   'setFavorites',
-  async (favoritePost: FavoriteData, { dispatch, extra: api }) => {
+  async (favoriteParams: FavoriteData, { dispatch, extra: api }) => {
     const { data } = await api.post<TOfferItemProps>(
-      `${ApiRoute.Favorites}/${favoritePost.offerId}/${favoritePost.status}`
+      `${ApiRoute.Favorites}/${favoriteParams.offerId}/${favoriteParams.status}`
     );
 
-    dispatch(setFavoriteOffer(data));
-    dispatch(setFavoriteOfferDetail(data.isFavorite));
+    switch (favoriteParams.triggerUpdate) {
+      case FavoritesTriggerUpdate.Offers:
+        dispatch(setFavoriteOffer(data));
+        break;
+      case FavoritesTriggerUpdate.OfferDetail:
+        dispatch(setFavoriteOfferDetail(data.isFavorite));
+        break;
+      case FavoritesTriggerUpdate.Favorites:
+        dispatch(fetchFavoritesAction());
+        break;
+      case FavoritesTriggerUpdate.Nearby:
+        dispatch(setFavoriteNearby(data));
+        break;
+    }
 
     return data;
   }

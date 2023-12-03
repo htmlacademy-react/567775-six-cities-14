@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './components/app/app';
 import { store } from './store';
-import { checkAuthAction, fetchFavoritesAction, fetchOffersAction } from './store/api-actions';
+import { checkAuthAction, fetchFavoritesAction } from './store/api-actions';
 import { ErrorMessage } from './components/error-message';
 
 const root = ReactDOM.createRoot(
@@ -11,7 +11,6 @@ const root = ReactDOM.createRoot(
 );
 
 store.dispatch(checkAuthAction());
-store.dispatch(fetchOffersAction());
 store.dispatch(fetchFavoritesAction());
 
 root.render(

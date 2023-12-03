@@ -6,7 +6,7 @@ import { TPoints } from '../../types/map';
 import { TabsList } from '../../components/tabs-list';
 import { SortingSelect } from '../../components/sorting-select';
 import { Map } from '../../components/map';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Spinner } from '../../components/spinner';
 import {
   getCityActive,
@@ -16,7 +16,9 @@ import {
 } from '../../store/offers-process/selectors';
 import { CitiesNoResult } from '../../components/cities-no-result';
 import classNames from 'classnames';
-
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { fetchOffersAction } from '../../store/api-actions';
+import { store } from '../../store';
 /* eslint-disable react/prop-types */
 export const Main: React.FC = () => {
   const offersData = useAppSelector(getOffers);
@@ -31,6 +33,12 @@ export const Main: React.FC = () => {
   const onHover = (value: number | undefined) => {
     setSelectedId(value);
   };
+
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+
+  useEffect(() => {
+    store.dispatch(fetchOffersAction());
+  }, [authorizationStatus]);
 
   offersData.forEach((elem) => {
     if (elem?.location) {

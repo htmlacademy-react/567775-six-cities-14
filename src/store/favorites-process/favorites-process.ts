@@ -6,6 +6,7 @@ import { fetchFavoritesAction, setFavoritesAction } from '../api-actions';
 const initialState: favoritesProcess = {
   favorites: [],
   favoritesIsLoading: false,
+  favoritesIsNotFound: false,
 };
 
 export const favoritesOffer = createSlice({
@@ -16,6 +17,7 @@ export const favoritesOffer = createSlice({
     builder
       .addCase(fetchFavoritesAction.pending, (state) => {
         state.favoritesIsLoading = true;
+        state.favoritesIsNotFound = false;
       })
 
       .addCase(fetchFavoritesAction.fulfilled, (state, action) => {
@@ -23,9 +25,16 @@ export const favoritesOffer = createSlice({
 
         if (offerFavoriteData.length > 0) {
           state.favorites = offerFavoriteData;
+        } else {
+          state.favoritesIsNotFound = true;
         }
 
         state.favoritesIsLoading = false;
+      })
+
+      .addCase(fetchFavoritesAction.rejected, (state) => {
+        state.favoritesIsLoading = false;
+        state.favoritesIsNotFound = true;
       })
 
       .addCase(setFavoritesAction.fulfilled, (state, action) => {

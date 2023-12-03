@@ -46,4 +46,5 @@ export type ErrorMessageProcess = {
 export type favoritesProcess = {
   favorites: TOfferItemProps[];
   favoritesIsLoading: boolean;
+  favoritesIsNotFound: boolean;
 };
