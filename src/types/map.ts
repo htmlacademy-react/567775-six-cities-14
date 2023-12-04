@@ -9,5 +9,5 @@ export type TPoints = {
 export type TMap = {
   city: TCity;
   points: TPoints[];
-  selectedPoint?: number | undefined;
+  selectedPoint?: number | string | undefined;
 };

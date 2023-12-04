@@ -1,6 +1,7 @@
 import { AuthorizationStatus } from '../../consts';
 import { store } from '../store';
 import { TCityOptions } from './city';
+import { TPoints } from './map';
 import { TOfferItemProps } from './offers';
 import { ReviewsItemProps } from './reviews';
 import { TSortingOffers } from './sorting';
@@ -10,6 +11,7 @@ export type TAppDispatch = typeof store.dispatch;
 
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus;
+  userEmail: string | null;
 };
 
 export type OffersProcess = {
@@ -37,6 +39,7 @@ export type OffersNearbyProcess = {
   offersNearby: TOfferItemProps[];
   offersNearbyIsLoading: boolean;
   offersNearbyIsNotFound: boolean;
+  offersNearbyMapPoints: TPoints[];
 };
 
 export type ErrorMessageProcess = {

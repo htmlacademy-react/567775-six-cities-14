@@ -24,7 +24,7 @@ export const offerComments = createSlice({
         const offerCommentsData = action.payload;
 
         if (offerCommentsData.length > 0) {
-          state.offerComments = offerCommentsData;
+          state.offerComments = [...offerCommentsData].slice(0, 10);
         }
 
         state.offerCommentsIsLoading = false;
@@ -38,7 +38,7 @@ export const offerComments = createSlice({
       .addCase(submitCommentAction.fulfilled, (state, action) => {
         const newComment = action.payload;
 
-        state.offerComments.push(newComment);
+        state.offerComments.unshift(newComment);
       });
   },
 });

@@ -91,13 +91,15 @@ export const Main: React.FC = () => {
               </section>
             )}
             <div className="cities__right-section">
-              {!!mapDataPointsNew.length && (
+              {!offersIsNoResult && (
                 <section className="cities__map map">
-                  <Map
-                    selectedPoint={selectedId}
-                    city={mapDataCity}
-                    points={mapDataPointsNew}
-                  />
+                  {!!mapDataPointsNew.length && (
+                    <Map
+                      selectedPoint={selectedId}
+                      city={mapDataCity}
+                      points={mapDataPointsNew}
+                    />
+                  )}
                 </section>
               )}
             </div>

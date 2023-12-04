@@ -8,6 +8,7 @@ const initialState: OffersNearbyProcess = {
   offersNearby: [],
   offersNearbyIsLoading: false,
   offersNearbyIsNotFound: false,
+  offersNearbyMapPoints: [],
 };
 
 export const offersNearby = createSlice({
@@ -34,6 +35,10 @@ export const offersNearby = createSlice({
 
         if (offerNearbyData.length > 0) {
           state.offersNearby = [...offerNearbyData].slice(0, 3);
+
+          state.offersNearbyMapPoints = state.offersNearby.map((item) => ({
+            location: { ...item.location },
+          }));
         }
 
         state.offersNearbyIsLoading = false;

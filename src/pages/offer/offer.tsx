@@ -20,10 +20,12 @@ import {
 import { fetchOfferDetailAction } from '../../store/api-actions';
 import classNames from 'classnames';
 import { useFavorites } from '../../hooks/use-favorites';
+import { getOffersNearbyMapPoints } from '../../store/offers-nearby-process/selectors';
 
 export const Offer: React.FC = () => {
   const { id: queryId } = useParams();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const offersNearbyMapPoints = useAppSelector(getOffersNearbyMapPoints);
 
   useEffect(() => {
     store.dispatch(fetchOfferDetailAction(queryId));
@@ -33,12 +35,12 @@ export const Offer: React.FC = () => {
   const isLoading = useAppSelector(getOfferDetailIsLoading);
   const isNotFound = useAppSelector(getOfferDetailIsNotFound);
 
-  const mapCity = offerDetail?.location
-    ? { location: { ...offerDetail?.location } }
-    : undefined;
-  const mapPoints = offerDetail?.location
-    ? [{ location: { ...offerDetail?.location } }]
+  const mapCity = offerDetail?.city;
+  const mapPointDetail = offerDetail?.location
+    ? [{ location: { ...offerDetail?.location, id: queryId } }]
     : [];
+
+  const mapPointsAll = [...mapPointDetail, ...offersNearbyMapPoints];
 
   const currentStatus = offerDetail && offerDetail.isFavorite ? 0 : 1;
   const onChangeFavorites = useFavorites(
@@ -109,7 +111,9 @@ export const Offer: React.FC = () => {
                       <div className="offer__stars rating__stars">
                         <span
                           style={{
-                            width: `${ratingPercentage(offerDetail.rating)}%`,
+                            width: `${ratingPercentage(
+                              Math.round(offerDetail.rating)
+                            )}%`,
                           }}
                         />
                         <span className="visually-hidden">Rating</span>
@@ -130,12 +134,14 @@ export const Offer: React.FC = () => {
                     )}
                     {offerDetail.bedrooms && (
                       <li className="offer__feature offer__feature--bedrooms">
-                        {offerDetail.bedrooms} Bedrooms
+                        {offerDetail.bedrooms} Bedroom
+                        {offerDetail.bedrooms > 1 && 's'}
                       </li>
                     )}
                     {offerDetail.maxAdults && (
                       <li className="offer__feature offer__feature--adults">
-                        Max {offerDetail.maxAdults} adults
+                        Max {offerDetail.maxAdults} adult
+                        {offerDetail.maxAdults > 1 && 's'}
                       </li>
                     )}
                   </ul>
@@ -200,9 +206,13 @@ export const Offer: React.FC = () => {
                   </section>
                 </div>
               </div>
-              {mapCity && mapPoints.length > 0 && (
+              {mapCity && mapPointsAll.length > 0 && (
                 <section className="offer__map map">
-                  <Map city={mapCity} points={mapPoints} />
+                  <Map
+                    city={mapCity}
+                    points={mapPointsAll}
+                    selectedPoint={queryId}
+                  />
                 </section>
               )}
             </section>

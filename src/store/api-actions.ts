@@ -13,6 +13,7 @@ import { FavoriteData } from '../types/favorites.js';
 import { setFavoriteOffer } from './offers-process/offers-process.js';
 import { setFavoriteOfferDetail } from './offer-process/offer-process.js';
 import { setFavoriteNearby } from './offers-nearby-process/offers-nearby-process.js';
+import { setEmail } from './user-process/user-process.js';
 
 export const fetchFavoritesAction = createAsyncThunk<
   TOfferItemProps[],
@@ -50,8 +51,12 @@ export const checkAuthAction = createAsyncThunk<
     state: TState;
     extra: AxiosInstance;
   }
->('checkAuth', async (_arg, { extra: api }) => {
-  await api.get(ApiRoute.Login);
+>('checkAuth', async (_arg, { dispatch, extra: api }) => {
+  const {
+    data: { email },
+  } = await api.get<TUserData>(ApiRoute.Login);
+
+  dispatch(setEmail(email));
 });
 
 export const loginAction = createAsyncThunk<

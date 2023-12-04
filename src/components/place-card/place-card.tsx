@@ -75,7 +75,7 @@ export const PlaceCard: React.FC<TPlaceCardProps> = ({
         {rating && (
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
-              <span style={{ width: `${ratingPercentage(rating)}%` }} />
+              <span style={{ width: `${ratingPercentage(Math.round(rating))}%` }} />
               <span className="visually-hidden">Rating</span>
             </div>
           </div>
