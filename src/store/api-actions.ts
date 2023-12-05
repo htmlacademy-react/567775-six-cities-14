@@ -74,6 +74,7 @@ export const loginAction = createAsyncThunk<
   saveToken(token);
   dispatch(fetchFavoritesAction());
   dispatch(redirectToRoute(AppRouter.Main));
+  dispatch(setEmail(email));
 });
 
 export const logoutAction = createAsyncThunk<

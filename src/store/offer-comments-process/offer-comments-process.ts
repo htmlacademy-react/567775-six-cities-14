@@ -7,6 +7,7 @@ const initialState: OfferCommentsProcess = {
   offerComments: [],
   offerCommentsIsLoading: false,
   offerCommentsIsNotFound: false,
+  offerCommentSubmitIsPending: false,
 };
 
 export const offerComments = createSlice({
@@ -24,7 +25,7 @@ export const offerComments = createSlice({
         const offerCommentsData = action.payload;
 
         if (offerCommentsData.length > 0) {
-          state.offerComments = [...offerCommentsData].slice(0, 10);
+          state.offerComments = offerCommentsData;
         }
 
         state.offerCommentsIsLoading = false;
@@ -35,10 +36,20 @@ export const offerComments = createSlice({
         state.offerCommentsIsNotFound = true;
       })
 
+      .addCase(submitCommentAction.pending, (state) => {
+        state.offerCommentSubmitIsPending = true;
+      })
+
       .addCase(submitCommentAction.fulfilled, (state, action) => {
         const newComment = action.payload;
 
         state.offerComments.unshift(newComment);
+
+        state.offerCommentSubmitIsPending = false;
+      })
+
+      .addCase(submitCommentAction.rejected, (state) => {
+        state.offerCommentSubmitIsPending = false;
       });
   },
 });

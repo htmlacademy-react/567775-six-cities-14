@@ -4,7 +4,9 @@ import { ReviewsItemProps } from '../../types/reviews';
 
 export const getOfferComments = (state: TState): ReviewsItemProps[] =>
   state[NameSpace.Comments].offerComments;
-export const getofferCommentsIsLoading = (state: TState): boolean =>
+export const getOfferCommentsIsLoading = (state: TState): boolean =>
   state[NameSpace.Comments].offerCommentsIsLoading;
-export const getOfferofferCommentsIsNotFound = (state: TState): boolean =>
+export const getOfferCommentsIsNotFound = (state: TState): boolean =>
   state[NameSpace.Comments].offerCommentsIsNotFound;
+export const getOfferCommentSubmitIsPending = (state: TState): boolean =>
+  state[NameSpace.Comments].offerCommentSubmitIsPending;

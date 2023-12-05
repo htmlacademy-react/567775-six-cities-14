@@ -2,14 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserProcess } from '../../types/state';
 import { checkAuthAction, loginAction, logoutAction } from '../api-actions';
 import { NameSpace, AuthorizationStatus } from '../../../consts';
-import { getToket } from '../../services/token';
-
-const token = getToket();
 
 const initialState: UserProcess = {
-  authorizationStatus: token
-    ? AuthorizationStatus.Auth
-    : AuthorizationStatus.Unknown,
+  authorizationStatus: AuthorizationStatus.Unknown,
   userEmail: null,
 };
 

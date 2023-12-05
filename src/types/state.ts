@@ -33,6 +33,7 @@ export type OfferCommentsProcess = {
   offerComments: ReviewsItemProps[];
   offerCommentsIsLoading: boolean;
   offerCommentsIsNotFound: boolean;
+  offerCommentSubmitIsPending: boolean;
 };
 
 export type OffersNearbyProcess = {

@@ -31,7 +31,6 @@ export default function App() {
               <Route index element={<Offer />} />
             </Route>
           </Route>
-
           <Route path="*" element={<NotFound />} />
         </Routes>
       </HistoryRouter>
