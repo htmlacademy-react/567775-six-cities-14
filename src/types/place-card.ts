@@ -1,11 +1,11 @@
-import { TOfferItemProps, TOfferOnHover } from './offers';
+import { OfferItemPropsType, OfferOnHoverType } from './offers';
 
 export type PlaceCardIsNearby = {
   isNearby?: boolean;
 };
 
-export type TPlaceCardProps = Pick<
-  TOfferItemProps,
+export type PlaceCardPropsType = Pick<
+  OfferItemPropsType,
   | 'price'
   | 'title'
   | 'rating'
@@ -16,5 +16,5 @@ export type TPlaceCardProps = Pick<
   | 'id'
   | 'location'
 > &
-  TOfferOnHover &
+  OfferOnHoverType &
   PlaceCardIsNearby;

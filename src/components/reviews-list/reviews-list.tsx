@@ -7,8 +7,8 @@ import { useEffect } from 'react';
 import { Spinner } from '../spinner';
 import {
   getOfferComments,
-  getOfferofferCommentsIsNotFound,
-  getofferCommentsIsLoading,
+  getOfferCommentsIsNotFound,
+  getOfferCommentsIsLoading,
 } from '../../store/offer-comments-process/selectors';
 
 export const ReviewsList: React.FC<ReviewsListProps> = ({
@@ -18,21 +18,22 @@ export const ReviewsList: React.FC<ReviewsListProps> = ({
     store.dispatch(fetchOfferCommentsAction(id));
   }, [id]);
 
-  const list = useAppSelector(getOfferComments);
-  const isLoading = useAppSelector(getofferCommentsIsLoading);
-  const isNotFound = useAppSelector(getOfferofferCommentsIsNotFound);
+  const listAll = useAppSelector(getOfferComments);
+  const listSlice = [...listAll].slice(0, 10);
+  const isLoading = useAppSelector(getOfferCommentsIsLoading);
+  const isNotFound = useAppSelector(getOfferCommentsIsNotFound);
 
   return (
     <div style={{ position: 'relative' }}>
       {isLoading && <Spinner />}
       {isNotFound && <h2 className="reviews__title">No reviews</h2>}
-      {list.length > 0 && !isNotFound && (
+      {listAll.length > 0 && !isNotFound && (
         <>
           <h2 className="reviews__title">
-            Reviews · <span className="reviews__amount">{list.length}</span>
+            Reviews · <span className="reviews__amount">{listAll.length}</span>
           </h2>
           <ul className="reviews__list">
-            {list.map((props) => (
+            {listSlice.map((props) => (
               <ReviewsItem {...props} key={props.id} />
             ))}
           </ul>

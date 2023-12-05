@@ -2,7 +2,7 @@ import { locations, placesOptions } from './helper';
 import { Helmet } from 'react-helmet-async';
 import { ListPlaceCard } from '../../components/list-place-card';
 import { useAppSelector } from '../../hooks/use-store';
-import { TPoints } from '../../types/map';
+import { PointsType } from '../../types/map';
 import { TabsList } from '../../components/tabs-list';
 import { SortingSelect } from '../../components/sorting-select';
 import { Map } from '../../components/map';
@@ -27,7 +27,7 @@ export const Main: React.FC = () => {
   const offersIsNoResult = useAppSelector(getOffersIsNoResult);
   const places = offersData.length;
   const mapDataCity = offersData[0]?.city;
-  const mapDataPointsNew: TPoints[] = [];
+  const mapDataPointsNew: PointsType[] = [];
   const [selectedId, setSelectedId] = useState<number | undefined>(undefined);
 
   const onHover = (value: number | undefined) => {
@@ -91,13 +91,15 @@ export const Main: React.FC = () => {
               </section>
             )}
             <div className="cities__right-section">
-              {!!mapDataPointsNew.length && (
+              {!offersIsNoResult && (
                 <section className="cities__map map">
-                  <Map
-                    selectedPoint={selectedId}
-                    city={mapDataCity}
-                    points={mapDataPointsNew}
-                  />
+                  {!!mapDataPointsNew.length && (
+                    <Map
+                      selectedPoint={selectedId}
+                      city={mapDataCity}
+                      points={mapDataPointsNew}
+                    />
+                  )}
                 </section>
               )}
             </div>

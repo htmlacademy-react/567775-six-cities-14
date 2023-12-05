@@ -2,22 +2,23 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace } from '../../../consts';
 import { OffersNearbyProcess } from '../../types/state';
 import { fetchOffersNearbyAction } from '../api-actions';
-import { TOfferItemProps } from '../../types/offers';
+import { OfferItemPropsType } from '../../types/offers';
 
 const initialState: OffersNearbyProcess = {
   offersNearby: [],
   offersNearbyIsLoading: false,
   offersNearbyIsNotFound: false,
+  offersNearbyMapPoints: [],
 };
 
 export const offersNearby = createSlice({
   name: NameSpace.OffersNearby,
   initialState,
   reducers: {
-    setFavoriteNearby(state, action: PayloadAction<TOfferItemProps>) {
+    setFavoriteNearby(state, action: PayloadAction<OfferItemPropsType>) {
       const nearbyFavorite = action.payload;
 
-      state.offersNearby = state.offersNearby.map((item: TOfferItemProps) =>
+      state.offersNearby = state.offersNearby.map((item: OfferItemPropsType) =>
         item.id === nearbyFavorite.id ? nearbyFavorite : item
       );
     },
@@ -34,6 +35,10 @@ export const offersNearby = createSlice({
 
         if (offerNearbyData.length > 0) {
           state.offersNearby = [...offerNearbyData].slice(0, 3);
+
+          state.offersNearbyMapPoints = state.offersNearby.map((item) => ({
+            location: { ...item.location },
+          }));
         }
 
         state.offersNearbyIsLoading = false;

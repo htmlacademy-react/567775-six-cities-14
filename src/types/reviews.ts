@@ -1,11 +1,11 @@
-import { TUser } from './user';
+import { UserType } from './user';
 
 export type ReviewsItemProps = {
   comment: string;
-  date: string;
+  date: string | Date;
   id: number | string;
   rating: number;
-  user: TUser;
+  user: UserType;
 };
 
 export type ReviewsListProps = {

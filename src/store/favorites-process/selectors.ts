@@ -1,10 +1,10 @@
-import { TState } from '../../types/state';
+import { StateType } from '../../types/state';
 import { NameSpace } from '../../../consts';
-import { TOfferItemProps } from '../../types/offers';
+import { OfferItemPropsType } from '../../types/offers';
 
-export const getFavorites = (state: TState): TOfferItemProps[] =>
+export const getFavorites = (state: StateType): OfferItemPropsType[] =>
   state[NameSpace.Favorites].favorites;
-export const getFavoritesIsLoading = (state: TState): boolean =>
+export const getFavoritesIsLoading = (state: StateType): boolean =>
   state[NameSpace.Favorites].favoritesIsLoading;
-export const getFavoritesIsNotFound = (state: TState): boolean =>
+export const getFavoritesIsNotFound = (state: StateType): boolean =>
   state[NameSpace.Favorites].favoritesIsNotFound;

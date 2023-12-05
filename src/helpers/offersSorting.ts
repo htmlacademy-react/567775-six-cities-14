@@ -1,6 +1,6 @@
-import { TOfferItemProps } from '../types/offers';
+import { OfferItemPropsType } from '../types/offers';
 
-export function offersSorting(sortBy: string, list: TOfferItemProps[]) {
+export function offersSorting(sortBy: string, list: OfferItemPropsType[]) {
   switch (sortBy) {
     case 'price-low-to-high':
       return list.sort((a, b) => a.price - b.price);

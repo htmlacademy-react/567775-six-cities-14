@@ -1,12 +1,19 @@
 import { FormEvent, Fragment, useState, useEffect } from 'react';
-import { useAppDispatch } from '../../hooks/use-store';
+import { useAppDispatch, useAppSelector } from '../../hooks/use-store';
 import { submitCommentAction } from '../../store/api-actions';
 import { FormReviewsProps } from '../../types/reviews';
+import { getOfferCommentSubmitIsPending } from '../../store/offer-comments-process/selectors';
+import { Spinner } from '../spinner';
+import classNames from 'classnames';
+import styled from './form-review.module.css';
 
 export const FormReview: React.FC<FormReviewsProps> = ({
   idOffer,
 }: FormReviewsProps) => {
   const dispatch = useAppDispatch();
+  const isOfferCommentSubmitIsPending = useAppSelector(
+    getOfferCommentSubmitIsPending
+  );
 
   const [formData, setFormData] = useState({
     rating: null,
@@ -73,7 +80,9 @@ export const FormReview: React.FC<FormReviewsProps> = ({
               defaultValue={radioValue}
               id={`${radioValue}-stars`}
               type="radio"
+              checked={String(radioValue) === String(formData.rating)}
               onChange={fieldChangeHandle}
+              disabled={isOfferCommentSubmitIsPending}
             />
             <label
               htmlFor={`${radioValue}-stars`}
@@ -94,6 +103,8 @@ export const FormReview: React.FC<FormReviewsProps> = ({
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={formData.review}
         onChange={fieldChangeHandle}
+        maxLength={300}
+        disabled={isOfferCommentSubmitIsPending}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -103,10 +114,18 @@ export const FormReview: React.FC<FormReviewsProps> = ({
         </p>
         <button
           className="reviews__submit form__submit button"
+          style={{ position: 'relative' }}
           type="submit"
-          disabled={disabled}
+          disabled={disabled || isOfferCommentSubmitIsPending}
         >
-          Submit
+          <span
+            className={classNames({
+              [styled.isOpacity]: isOfferCommentSubmitIsPending,
+            })}
+          >
+            Submit
+          </span>
+          {isOfferCommentSubmitIsPending && <Spinner />}
         </button>
       </div>
     </form>

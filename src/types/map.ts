@@ -1,13 +1,13 @@
-import { TCity } from './city';
-import { TLocation } from './locations';
+import { CityType } from './city';
+import { LocationType } from './locations';
 
-export type TPoints = {
-  location: TLocation;
+export type PointsType = {
+  location: LocationType;
   name?: string;
 };
 
-export type TMap = {
-  city: TCity;
-  points: TPoints[];
-  selectedPoint?: number | undefined;
+export type MapType = {
+  city: CityType;
+  points: PointsType[];
+  selectedPoint?: number | string | undefined;
 };

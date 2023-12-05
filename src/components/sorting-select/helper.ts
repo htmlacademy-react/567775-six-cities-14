@@ -1,5 +1,5 @@
-import { TSortingOption } from '../../types/sorting';
+import { SortingOptionType } from '../../types/sorting';
 
-export function getTextById(id: string | number, list: TSortingOption[]) {
-  return list.find((item: TSortingOption) => item.id === id)?.title;
+export function getTextById(id: string | number, list: SortingOptionType[]) {
+  return list.find((item: SortingOptionType) => item.id === id)?.title;
 }

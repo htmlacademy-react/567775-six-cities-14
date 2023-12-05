@@ -29,7 +29,7 @@ export const ReviewsItem: React.FC<ReviewsItemProps> = ({
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: `${ratingPercentage(rating)}%` }} />
+            <span style={{ width: `${ratingPercentage(Math.round(rating))}%` }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

@@ -1,17 +1,22 @@
 import { Navigate } from 'react-router-dom';
-import { AppRouter, AuthorizationStatus } from '../../../consts';
+import { AppRouter } from '../../../consts';
+import { useAppSelector } from '../../hooks/use-store';
+import { getCheckAuthIsLoaded } from '../../store/user-process/selectors';
 
 type PrivateRouteProps = {
-  authStatus: AuthorizationStatus;
+  authStatus: boolean;
   children: React.ReactNode;
+  pathRoute?: AppRouter;
 };
 
 export const PrivateRoute: React.FC<PrivateRouteProps> = ({
   children,
   authStatus,
-}: PrivateRouteProps) =>
-  authStatus === AuthorizationStatus.Auth ? (
-    children
-  ) : (
-    <Navigate to={AppRouter.Login} />
-  );
+  pathRoute = AppRouter.Login,
+}: PrivateRouteProps) => {
+  const checkAuthIsLoaded = useAppSelector(getCheckAuthIsLoaded);
+
+  if (checkAuthIsLoaded) {
+    return authStatus ? children : <Navigate to={pathRoute} />;
+  }
+};

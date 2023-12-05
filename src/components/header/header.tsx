@@ -1,16 +1,24 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AppRouter, AuthorizationStatus } from '../../../consts';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-store';
-import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import {
+  getAuthorizationStatus,
+  getUserEmail,
+} from '../../store/user-process/selectors';
 import { logoutAction } from '../../store/api-actions';
 import { getFavorites } from '../../store/favorites-process/selectors';
 
 export const Header: React.FC = () => {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const userEmail = useAppSelector(getUserEmail);
   const dispatch = useAppDispatch();
   const favorites = useAppSelector(getFavorites);
 
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
+
+  const { pathname } = useLocation();
+
+  const isPageLogin = pathname === String(AppRouter.Login);
 
   return (
     <header className="header">
@@ -30,51 +38,53 @@ export const Header: React.FC = () => {
               />
             </Link>
           </div>
-          <nav className="header__nav">
-            <ul className="header__nav-list">
-              {isAuth ? (
-                <>
+          {!isPageLogin && (
+            <nav className="header__nav">
+              <ul className="header__nav-list">
+                {isAuth ? (
+                  <>
+                    <li className="header__nav-item user">
+                      <Link
+                        to={AppRouter.Favorites}
+                        className="header__nav-link header__nav-link--profile"
+                      >
+                        <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                        <span className="header__user-name user__name">
+                          {userEmail}
+                        </span>
+
+                        <span className="header__favorite-count">
+                          {favorites.length}
+                        </span>
+                      </Link>
+                    </li>
+                    <li className="header__nav-item">
+                      <a
+                        className="header__nav-link"
+                        href="#"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          dispatch(logoutAction());
+                        }}
+                      >
+                        <span className="header__signout">Sign out</span>
+                      </a>
+                    </li>
+                  </>
+                ) : (
                   <li className="header__nav-item user">
                     <Link
-                      to={AppRouter.Favorites}
+                      to={AppRouter.Login}
                       className="header__nav-link header__nav-link--profile"
                     >
                       <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                      <span className="header__user-name user__name">
-                        Oliver.conner@gmail.com
-                      </span>
-
-                      <span className="header__favorite-count">
-                        {favorites.length}
-                      </span>
+                      <span className="header__login">Sign in</span>
                     </Link>
                   </li>
-                  <li className="header__nav-item">
-                    <a
-                      className="header__nav-link"
-                      href="#"
-                      onClick={(event) => {
-                        event.preventDefault();
-                        dispatch(logoutAction());
-                      }}
-                    >
-                      <span className="header__signout">Sign out</span>
-                    </a>
-                  </li>
-                </>
-              ) : (
-                <li className="header__nav-item user">
-                  <Link
-                    to={AppRouter.Login}
-                    className="header__nav-link header__nav-link--profile"
-                  >
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__login">Sign in</span>
-                  </Link>
-                </li>
-              )}
-            </ul>
-          </nav>
+                )}
+              </ul>
+            </nav>
+          )}
         </div>
       </div>
     </header>

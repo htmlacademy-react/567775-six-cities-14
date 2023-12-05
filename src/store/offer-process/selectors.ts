@@ -1,10 +1,10 @@
-import { TState } from '../../types/state';
+import { StateType } from '../../types/state';
 import { NameSpace } from '../../../consts';
-import { TOfferItemProps } from '../../types/offers';
+import { OfferItemPropsType } from '../../types/offers';
 
-export const getOfferDetail = (state: TState): TOfferItemProps | null =>
+export const getOfferDetail = (state: StateType): OfferItemPropsType | null =>
   state[NameSpace.Offer].offerDetail;
-export const getOfferDetailIsLoading = (state: TState): boolean =>
+export const getOfferDetailIsLoading = (state: StateType): boolean =>
   state[NameSpace.Offer].offerDetailIsLoading;
-export const getOfferDetailIsNotFound = (state: TState): boolean =>
+export const getOfferDetailIsNotFound = (state: StateType): boolean =>
   state[NameSpace.Offer].offerDetailIsNotFound;

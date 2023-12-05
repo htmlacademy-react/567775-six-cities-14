@@ -1,10 +1,12 @@
-import { TState } from '../../types/state';
+import { StateType } from '../../types/state';
 import { NameSpace } from '../../../consts';
 import { ReviewsItemProps } from '../../types/reviews';
 
-export const getOfferComments = (state: TState): ReviewsItemProps[] =>
+export const getOfferComments = (state: StateType): ReviewsItemProps[] =>
   state[NameSpace.Comments].offerComments;
-export const getofferCommentsIsLoading = (state: TState): boolean =>
+export const getOfferCommentsIsLoading = (state: StateType): boolean =>
   state[NameSpace.Comments].offerCommentsIsLoading;
-export const getOfferofferCommentsIsNotFound = (state: TState): boolean =>
+export const getOfferCommentsIsNotFound = (state: StateType): boolean =>
   state[NameSpace.Comments].offerCommentsIsNotFound;
+export const getOfferCommentSubmitIsPending = (state: StateType): boolean =>
+  state[NameSpace.Comments].offerCommentSubmitIsPending;

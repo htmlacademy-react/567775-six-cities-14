@@ -2,42 +2,43 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { redirectToRoute } from './action.js';
 import { ApiRoute, AppRouter, FavoritesTriggerUpdate } from '../../consts.js';
-import { TAppDispatch, TState } from '../types/state.js';
-import { TOfferItemProps } from '../types/offers.js';
-import { TAuthData } from '../types/auth-data.js';
+import { AppDispatchType, StateType } from '../types/state.js';
+import { OfferItemPropsType } from '../types/offers.js';
+import { AuthDataType } from '../types/auth-data.js';
 import { dropToken, saveToken } from '../services/token.js';
-import { TUserData } from '../types/user.js';
+import { UserDataType } from '../types/user.js';
 import { ReviewsItemProps } from '../types/reviews.js';
 import { CommentData } from '../types/comments.js';
 import { FavoriteData } from '../types/favorites.js';
 import { setFavoriteOffer } from './offers-process/offers-process.js';
 import { setFavoriteOfferDetail } from './offer-process/offer-process.js';
 import { setFavoriteNearby } from './offers-nearby-process/offers-nearby-process.js';
+import { setEmail } from './user-process/user-process.js';
 
 export const fetchFavoritesAction = createAsyncThunk<
-  TOfferItemProps[],
+  OfferItemPropsType[],
   undefined,
   {
-    dispatch: TAppDispatch;
-    state: TState;
+    dispatch: AppDispatchType;
+    state: StateType;
     extra: AxiosInstance;
   }
 >('fetchFavorites', async (_arg, { extra: api }) => {
-  const { data } = await api.get<TOfferItemProps[]>(ApiRoute.Favorites);
+  const { data } = await api.get<OfferItemPropsType[]>(ApiRoute.Favorites);
 
   return data;
 });
 
 export const fetchOffersAction = createAsyncThunk<
-  TOfferItemProps[],
+  OfferItemPropsType[],
   undefined,
   {
-    dispatch: TAppDispatch;
-    state: TState;
+    dispatch: AppDispatchType;
+    state: StateType;
     extra: AxiosInstance;
   }
 >('fetchOffers', async (_arg, { extra: api }) => {
-  const { data } = await api.get<TOfferItemProps[]>(ApiRoute.Offers);
+  const { data } = await api.get<OfferItemPropsType[]>(ApiRoute.Offers);
 
   return data;
 });
@@ -46,56 +47,63 @@ export const checkAuthAction = createAsyncThunk<
   void,
   undefined,
   {
-    dispatch: TAppDispatch;
-    state: TState;
+    dispatch: AppDispatchType;
+    state: StateType;
     extra: AxiosInstance;
   }
->('checkAuth', async (_arg, { extra: api }) => {
-  await api.get(ApiRoute.Login);
+>('checkAuth', async (_arg, { dispatch, extra: api }) => {
+  const {
+    data: { email },
+  } = await api.get<UserDataType>(ApiRoute.Login);
+
+  dispatch(setEmail(email));
 });
 
 export const loginAction = createAsyncThunk<
   void,
-  TAuthData,
+  AuthDataType,
   {
-    dispatch: TAppDispatch;
-    state: TState;
+    dispatch: AppDispatchType;
+    state: StateType;
     extra: AxiosInstance;
   }
 >('login', async ({ login: email, password }, { dispatch, extra: api }) => {
   const {
     data: { token },
-  } = await api.post<TUserData>(ApiRoute.Login, { email, password });
+  } = await api.post<UserDataType>(ApiRoute.Login, { email, password });
   saveToken(token);
   dispatch(fetchFavoritesAction());
   dispatch(redirectToRoute(AppRouter.Main));
+  dispatch(setEmail(email));
 });
 
 export const logoutAction = createAsyncThunk<
   void,
   undefined,
   {
-    dispatch: TAppDispatch;
-    state: TState;
+    dispatch: AppDispatchType;
+    state: StateType;
     extra: AxiosInstance;
   }
->('logout', async (_arg, { extra: api }) => {
+>('logout', async (_arg, { dispatch, extra: api }) => {
   await api.delete(ApiRoute.Logout);
   dropToken();
+
+  dispatch(checkAuthAction);
 });
 
 export const fetchOfferDetailAction = createAsyncThunk<
-  TOfferItemProps,
+  OfferItemPropsType,
   number | string | undefined,
   {
-    dispatch: TAppDispatch;
-    state: TState;
+    dispatch: AppDispatchType;
+    state: StateType;
     extra: AxiosInstance;
   }
 >('fetchOfferDetail', async (_arg, { extra: api }) => {
   const id = _arg;
 
-  const { data } = await api.get<TOfferItemProps>(`${ApiRoute.Offers}/${id}`);
+  const { data } = await api.get<OfferItemPropsType>(`${ApiRoute.Offers}/${id}`);
 
   return data;
 });
@@ -104,8 +112,8 @@ export const fetchOfferCommentsAction = createAsyncThunk<
   ReviewsItemProps[],
   number | string | undefined,
   {
-    dispatch: TAppDispatch;
-    state: TState;
+    dispatch: AppDispatchType;
+    state: StateType;
     extra: AxiosInstance;
   }
 >('fetchOfferComments', async (_arg, { extra: api }) => {
@@ -119,17 +127,17 @@ export const fetchOfferCommentsAction = createAsyncThunk<
 });
 
 export const fetchOffersNearbyAction = createAsyncThunk<
-  TOfferItemProps[],
+  OfferItemPropsType[],
   number | string | undefined,
   {
-    dispatch: TAppDispatch;
-    state: TState;
+    dispatch: AppDispatchType;
+    state: StateType;
     extra: AxiosInstance;
   }
 >('fetchOffersNearby', async (_arg, { extra: api }) => {
   const id = _arg;
 
-  const { data } = await api.get<TOfferItemProps[]>(
+  const { data } = await api.get<OfferItemPropsType[]>(
     `${ApiRoute.Offers}/${id}/nearby`
   );
 
@@ -140,8 +148,8 @@ export const submitCommentAction = createAsyncThunk<
   ReviewsItemProps,
   CommentData,
   {
-    dispatch: TAppDispatch;
-    state: TState;
+    dispatch: AppDispatchType;
+    state: StateType;
     extra: AxiosInstance;
   }
 >('submitComment', async (commentPost: CommentData, { extra: api }) => {
@@ -157,17 +165,17 @@ export const submitCommentAction = createAsyncThunk<
 });
 
 export const setFavoritesAction = createAsyncThunk<
-  TOfferItemProps,
+  OfferItemPropsType,
   FavoriteData,
   {
-    dispatch: TAppDispatch;
-    state: TState;
+    dispatch: AppDispatchType;
+    state: StateType;
     extra: AxiosInstance;
   }
 >(
   'setFavorites',
   async (favoriteParams: FavoriteData, { dispatch, extra: api }) => {
-    const { data } = await api.post<TOfferItemProps>(
+    const { data } = await api.post<OfferItemPropsType>(
       `${ApiRoute.Favorites}/${favoriteParams.offerId}/${favoriteParams.status}`
     );
 
