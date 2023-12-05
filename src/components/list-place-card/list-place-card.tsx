@@ -1,12 +1,12 @@
 import { PlaceCard } from '../../components/place-card';
-import { TOffersProps } from '../../types/offers';
-import { TPlaceCardProps } from '../../types/place-card';
+import { OffersPropsType } from '../../types/offers';
+import { PlaceCardPropsType } from '../../types/place-card';
 
-export const ListPlaceCard: React.FC<TOffersProps> = ({
+export const ListPlaceCard: React.FC<OffersPropsType> = ({
   offers,
   onHover,
   isNearby,
 }) =>
-  offers.map((item: TPlaceCardProps) => (
+  offers.map((item: PlaceCardPropsType) => (
     <PlaceCard {...item} key={item?.id} onHover={onHover} isNearby={isNearby} />
   ));

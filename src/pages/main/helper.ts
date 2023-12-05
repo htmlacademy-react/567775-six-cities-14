@@ -1,8 +1,8 @@
 import { DEFAULT_CITY } from '../../../consts';
-import { TSortingOption } from '../../types/sorting';
-import { TTabsList } from '../../types/tabs';
+import { SortingOptionType } from '../../types/sorting';
+import { TabsListType } from '../../types/tabs';
 
-export const locations: TTabsList = {
+export const locations: TabsListType = {
   list: [
     {
       id: 'Paris',
@@ -32,7 +32,7 @@ export const locations: TTabsList = {
   active: DEFAULT_CITY,
 };
 
-export const placesOptions: TSortingOption[] = [
+export const placesOptions: SortingOptionType[] = [
   {
     id: 'popular',
     title: 'Popular',

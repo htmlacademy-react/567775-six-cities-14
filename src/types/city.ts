@@ -1,9 +1,9 @@
 import { CITY_LIST } from '../../consts';
-import { TLocation } from './locations';
+import { LocationType } from './locations';
 
-export type TCityOptions = (typeof CITY_LIST)[keyof typeof CITY_LIST];
+export type CityOptionsType = (typeof CITY_LIST)[keyof typeof CITY_LIST];
 
-export type TCity = {
-  location: TLocation;
-  name?: TCityOptions;
+export type CityType = {
+  location: LocationType;
+  name?: CityOptionsType;
 };

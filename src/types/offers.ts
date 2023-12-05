@@ -1,23 +1,23 @@
-import { TCity } from './city';
-import { THost } from './host';
-import { TLocation } from './locations';
+import { CityType } from './city';
+import { HostType } from './host';
+import { LocationType } from './locations';
 import { PlaceCardIsNearby } from './place-card';
 
-export type TOfferOnHover = {
+export type OfferOnHoverType = {
   onHover?(id: number | string | undefined): void;
 };
 
-export type TOfferItemProps = {
+export type OfferItemPropsType = {
   bedrooms: number;
-  city: TCity;
+  city: CityType;
   description: string;
   goods: string[];
-  host: THost;
+  host: HostType;
   id: number | string;
   images: string[];
   isFavorite: boolean;
   isPremium: boolean;
-  location: TLocation;
+  location: LocationType;
   maxAdults: number;
   previewImage?: string;
   price: number;
@@ -26,6 +26,6 @@ export type TOfferItemProps = {
   type: string;
 };
 
-export type TOffersProps = {
-  offers: TOfferItemProps[];
-} & TOfferOnHover & PlaceCardIsNearby
+export type OffersPropsType = {
+  offers: OfferItemPropsType[];
+} & OfferOnHoverType & PlaceCardIsNearby

@@ -1,11 +1,11 @@
-import { TCityOptions } from './city';
+import { CityOptionsType } from './city';
 
-export type TTabsItem = {
-  id: TCityOptions;
-  title: TCityOptions;
+export type TabsItemType = {
+  id: CityOptionsType;
+  title: CityOptionsType;
 };
 
-export type TTabsList = {
-  list: TTabsItem[];
-  active: TCityOptions;
+export type TabsListType = {
+  list: TabsItemType[];
+  active: CityOptionsType;
 };

@@ -1,10 +1,10 @@
-import { TPlaceCardProps } from '../../types/place-card';
+import { PlaceCardPropsType } from '../../types/place-card';
 import { Link } from 'react-router-dom';
 import { AppRouter, FavoritesTriggerUpdate } from '../../../consts';
 import { ratingPercentage } from '../../helpers';
 import { useFavorites } from '../../hooks/use-favorites';
 
-export const FavoritesCard: React.FC<TPlaceCardProps> = ({
+export const FavoritesCard: React.FC<PlaceCardPropsType> = ({
   price,
   title,
   rating,
@@ -12,7 +12,7 @@ export const FavoritesCard: React.FC<TPlaceCardProps> = ({
   isPremium,
   previewImage,
   id,
-}: TPlaceCardProps) => {
+}: PlaceCardPropsType) => {
   const onChangeFavorites = useFavorites(
     String(id),
     0,

@@ -1,5 +1,5 @@
-import { TState } from '../../types/state';
+import { StateType } from '../../types/state';
 import { NameSpace } from '../../../consts';
 
-export const getErrorMessage = (state: TState): string | null =>
+export const getErrorMessage = (state: StateType): string | null =>
   state[NameSpace.ErrorMessage].errorMessage;

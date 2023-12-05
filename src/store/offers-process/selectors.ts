@@ -1,13 +1,13 @@
-import { TState } from '../../types/state';
+import { StateType } from '../../types/state';
 import { NameSpace } from '../../../consts';
-import { TOfferItemProps } from '../../types/offers';
-import { TCityOptions } from '../../types/city';
+import { OfferItemPropsType } from '../../types/offers';
+import { CityOptionsType } from '../../types/city';
 
-export const getOffers = (state: TState): TOfferItemProps[] =>
+export const getOffers = (state: StateType): OfferItemPropsType[] =>
   state[NameSpace.Offers].offers;
-export const getOffersIsLoading = (state: TState): boolean =>
+export const getOffersIsLoading = (state: StateType): boolean =>
   state[NameSpace.Offers].offersIsLoading;
-export const getOffersIsNoResult = (state: TState): boolean =>
+export const getOffersIsNoResult = (state: StateType): boolean =>
   state[NameSpace.Offers].offersIsNoResult;
-export const getCityActive = (state: TState): TCityOptions =>
+export const getCityActive = (state: StateType): CityOptionsType =>
   state[NameSpace.Offers].cityActive;

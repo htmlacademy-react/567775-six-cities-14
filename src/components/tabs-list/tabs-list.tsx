@@ -1,14 +1,14 @@
 import classNames from 'classnames';
-import { TTabsList } from '../../types/tabs';
+import { TabsListType } from '../../types/tabs';
 import { useAppDispatch } from '../../hooks/use-store';
 import styled from './tabs.module.css';
-import { TCityOptions } from '../../types/city';
+import { CityOptionsType } from '../../types/city';
 import { setCityActive, setOffers } from '../../store/offers-process/offers-process';
 
-export const TabsList: React.FC<TTabsList> = ({ list, active }: TTabsList) => {
+export const TabsList: React.FC<TabsListType> = ({ list, active }: TabsListType) => {
   const dispatch = useAppDispatch();
 
-  const handleClick = (id: TCityOptions) => {
+  const handleClick = (id: CityOptionsType) => {
     dispatch(setCityActive({ city: id }));
     dispatch(setOffers());
   };

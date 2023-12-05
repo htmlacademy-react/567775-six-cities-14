@@ -6,11 +6,11 @@ import { HelmetProvider } from 'react-helmet-async';
 import { browserHistory } from '../../../browser-history';
 import { HistoryRouter } from '../history-route';
 import { useAppSelector } from '../../hooks/use-store';
-import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getAuthCheckedStatus } from '../../store/user-process/selectors';
 import { Dashboard } from '../dashboard/dashboard';
 
 export default function App() {
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isAuthorizationStatus = useAppSelector(getAuthCheckedStatus);
 
   return (
     <HelmetProvider>
@@ -18,11 +18,21 @@ export default function App() {
         <Routes>
           <Route path={AppRouter.Main} element={<Dashboard />}>
             <Route path={AppRouter.Main} element={<Main />} />
-            <Route path={AppRouter.Login} element={<Login />} />
+            <Route
+              path={AppRouter.Login}
+              element={
+                <PrivateRoute
+                  authStatus={!isAuthorizationStatus}
+                  pathRoute={AppRouter.Main}
+                >
+                  <Login />
+                </PrivateRoute>
+              }
+            />
             <Route
               path={AppRouter.Favorites}
               element={
-                <PrivateRoute authStatus={authorizationStatus}>
+                <PrivateRoute authStatus={isAuthorizationStatus}>
                   <Favorites />
                 </PrivateRoute>
               }

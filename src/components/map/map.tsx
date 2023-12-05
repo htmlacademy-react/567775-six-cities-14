@@ -4,7 +4,7 @@ import { Icon, Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import styled from './map.module.css';
 import { useMap } from '../../hooks/use-map';
-import { TMap } from '../../types/map';
+import { MapType } from '../../types/map';
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -18,11 +18,11 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
-export const Map: React.FC<TMap> = ({
+export const Map: React.FC<MapType> = ({
   city,
   points,
   selectedPoint = undefined,
-}: TMap) => {
+}: MapType) => {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 

@@ -1,10 +1,10 @@
-import { TOfferItemProps } from '../types/offers';
+import { OfferItemPropsType } from '../types/offers';
 
 type TGroupArrayByCity = {
-  [key: string]: TOfferItemProps[];
+  [key: string]: OfferItemPropsType[];
 };
 
-export function offersGroupArrayByCity(list: TOfferItemProps[]) {
+export function offersGroupArrayByCity(list: OfferItemPropsType[]) {
   const groupedList: TGroupArrayByCity = {};
 
   list.forEach((item) => {

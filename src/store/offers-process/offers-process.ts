@@ -3,9 +3,9 @@ import { OffersProcess } from '../../types/state';
 import { fetchOffersAction } from '../api-actions';
 import { DEFAULT_CITY, DEFAULT_SORTING, NameSpace } from '../../../consts';
 import { offersSorting } from '../../helpers';
-import { TCityOptions } from '../../types/city';
-import { TSortingOffers } from '../../types/sorting';
-import { TOfferItemProps } from '../../types/offers';
+import { CityOptionsType } from '../../types/city';
+import { SortingOffersType } from '../../types/sorting';
+import { OfferItemPropsType } from '../../types/offers';
 
 const initialState: OffersProcess = {
   cityActive: DEFAULT_CITY,
@@ -38,22 +38,22 @@ export const offersProcess = createSlice({
       }
     },
 
-    setCityActive(state, action: PayloadAction<{ city: TCityOptions }>) {
+    setCityActive(state, action: PayloadAction<{ city: CityOptionsType }>) {
       const { city } = action.payload;
 
       state.cityActive = city;
     },
 
-    setSorting(state, action: PayloadAction<{ sorting: TSortingOffers }>) {
+    setSorting(state, action: PayloadAction<{ sorting: SortingOffersType }>) {
       const { sorting } = action.payload;
 
       state.sortingBy = sorting;
     },
 
-    setFavoriteOffer(state, action: PayloadAction<TOfferItemProps>) {
+    setFavoriteOffer(state, action: PayloadAction<OfferItemPropsType>) {
       const offerFavorite = action.payload;
 
-      state.offers = state.offers.map((item: TOfferItemProps) =>
+      state.offers = state.offers.map((item: OfferItemPropsType) =>
         item.id === offerFavorite.id ? offerFavorite : item
       );
     },
@@ -66,7 +66,7 @@ export const offersProcess = createSlice({
 
       .addCase(
         fetchOffersAction.fulfilled,
-        (state, action: PayloadAction<TOfferItemProps[]>) => {
+        (state, action: PayloadAction<OfferItemPropsType[]>) => {
           state.offersAll = action.payload;
           state.offersIsLoading = false;
 

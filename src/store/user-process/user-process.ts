@@ -6,6 +6,7 @@ import { NameSpace, AuthorizationStatus } from '../../../consts';
 const initialState: UserProcess = {
   authorizationStatus: AuthorizationStatus.Unknown,
   userEmail: null,
+  checkAuthIsLoaded: false,
 };
 
 export const userProcess = createSlice({
@@ -18,11 +19,16 @@ export const userProcess = createSlice({
   },
   extraReducers(builder) {
     builder
+      .addCase(checkAuthAction.pending, (state) => {
+        state.checkAuthIsLoaded = false;
+      })
       .addCase(checkAuthAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
+        state.checkAuthIsLoaded = true;
       })
       .addCase(checkAuthAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
+        state.checkAuthIsLoaded = true;
       })
       .addCase(loginAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.Auth;

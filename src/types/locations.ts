@@ -1,6 +1,6 @@
-import { TOfferItemProps } from './offers';
+import { OfferItemPropsType } from './offers';
 
-export type TLocation = {
+export type LocationType = {
   latitude: number;
   longitude: number;
   zoom: number;
@@ -9,5 +9,5 @@ export type TLocation = {
 
 export type TLocationsItemsProps = {
   city: string;
-  list: TOfferItemProps[];
+  list: OfferItemPropsType[];
 };

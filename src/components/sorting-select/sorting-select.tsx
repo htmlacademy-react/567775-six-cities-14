@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { TSortingList, TSortingOffers } from '../../types/sorting';
+import { SortingListType, SortingOffersType } from '../../types/sorting';
 import { useState, useEffect } from 'react';
 import { getTextById } from './helper';
 import styled from './sorting-select.module.css';
@@ -7,10 +7,10 @@ import { useOutsideClick } from '../../hooks/use-outside-click';
 import { useAppDispatch } from '../../hooks/use-store';
 import { setOffers, setSorting } from '../../store/offers-process/offers-process';
 
-export const SortingSelect: React.FC<TSortingList> = ({
+export const SortingSelect: React.FC<SortingListType> = ({
   list,
-}: TSortingList) => {
-  const [sortBy, setSortBy] = useState<TSortingOffers>('popular');
+}: SortingListType) => {
+  const [sortBy, setSortBy] = useState<SortingOffersType>('popular');
   const [textActive, setTextActive] = useState<string>();
   const [openMenu, setOpenMenu] = useState(false);
 
@@ -28,7 +28,7 @@ export const SortingSelect: React.FC<TSortingList> = ({
     setOpenMenu(true);
   };
 
-  const handleChangeValue = (id: TSortingOffers) => {
+  const handleChangeValue = (id: SortingOffersType) => {
     setSortBy(id);
     setTextActive(getTextById(sortBy, list));
     setOpenMenu(false);
