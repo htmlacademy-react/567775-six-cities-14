@@ -1,4 +1,4 @@
-import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../../consts';
+import { URL_MARKER_DEFAULT, URL_MARKER_ACTIVE } from '../../../consts';
 import { useRef, useEffect } from 'react';
 import { Icon, Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -13,7 +13,7 @@ const defaultCustomIcon = new Icon({
 });
 
 const currentCustomIcon = new Icon({
-  iconUrl: URL_MARKER_CURRENT,
+  iconUrl: URL_MARKER_ACTIVE,
   iconSize: [28, 40],
   iconAnchor: [14, 40],
 });
