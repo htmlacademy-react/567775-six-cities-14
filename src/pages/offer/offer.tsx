@@ -43,7 +43,7 @@ export const Offer: React.FC = () => {
   const mapPointsAll = [...mapPointDetail, ...offersNearbyMapPoints];
 
   const currentStatus = offerDetail && offerDetail.isFavorite ? 0 : 1;
-  const onChangeFavorites = useFavorites(
+  const handleChangeFavorites = useFavorites(
     String(queryId),
     currentStatus,
     FavoritesTriggerUpdate.OfferDetail
@@ -94,7 +94,7 @@ export const Offer: React.FC = () => {
                         'offer__bookmark-button button'
                       )}
                       type="button"
-                      onClick={onChangeFavorites}
+                      onClick={handleChangeFavorites}
                     >
                       <svg
                         className="offer__bookmark-icon"

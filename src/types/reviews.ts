@@ -2,7 +2,7 @@ import { UserType } from './user';
 
 export type ReviewsItemProps = {
   comment: string;
-  date: string | Date;
+  date: string;
   id: number | string;
   rating: number;
   user: UserType;

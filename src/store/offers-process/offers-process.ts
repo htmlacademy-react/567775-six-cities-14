@@ -52,9 +52,13 @@ export const offersProcess = createSlice({
 
     setFavoriteOffer(state, action: PayloadAction<OfferItemPropsType>) {
       const offerFavorite = action.payload;
+      const offerFavoriteFull = {
+        ...offerFavorite,
+        location: { ...offerFavorite.location, id: offerFavorite.id },
+      };
 
       state.offers = state.offers.map((item: OfferItemPropsType) =>
-        item.id === offerFavorite.id ? offerFavorite : item
+        item.id === offerFavoriteFull.id ? offerFavoriteFull : item
       );
     },
   },
@@ -85,4 +89,5 @@ export const offersProcess = createSlice({
   },
 });
 
-export const { setOffers, setCityActive, setSorting, setFavoriteOffer } = offersProcess.actions;
+export const { setOffers, setCityActive, setSorting, setFavoriteOffer } =
+  offersProcess.actions;

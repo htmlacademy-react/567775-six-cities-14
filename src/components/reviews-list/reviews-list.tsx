@@ -10,6 +10,7 @@ import {
   getOfferCommentsIsNotFound,
   getOfferCommentsIsLoading,
 } from '../../store/offer-comments-process/selectors';
+import { MAX_REVIEWS_LIST_COUNT } from '../../../consts';
 
 export const ReviewsList: React.FC<ReviewsListProps> = ({
   id,
@@ -19,9 +20,13 @@ export const ReviewsList: React.FC<ReviewsListProps> = ({
   }, [id]);
 
   const listAll = useAppSelector(getOfferComments);
-  const listSlice = [...listAll].slice(0, 10);
+  const listSlice = [...listAll].slice(0, MAX_REVIEWS_LIST_COUNT);
   const isLoading = useAppSelector(getOfferCommentsIsLoading);
   const isNotFound = useAppSelector(getOfferCommentsIsNotFound);
+
+  const listSortinByNewDate = listSlice.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
 
   return (
     <div style={{ position: 'relative' }}>
@@ -33,7 +38,7 @@ export const ReviewsList: React.FC<ReviewsListProps> = ({
             Reviews · <span className="reviews__amount">{listAll.length}</span>
           </h2>
           <ul className="reviews__list">
-            {listSlice.map((props) => (
+            {listSortinByNewDate.map((props) => (
               <ReviewsItem {...props} key={props.id} />
             ))}
           </ul>

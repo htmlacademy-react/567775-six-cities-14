@@ -13,7 +13,7 @@ export const FavoritesCard: React.FC<PlaceCardPropsType> = ({
   previewImage,
   id,
 }: PlaceCardPropsType) => {
-  const onChangeFavorites = useFavorites(
+  const handleChangeFavorites = useFavorites(
     String(id),
     0,
     FavoritesTriggerUpdate.Favorites
@@ -50,7 +50,7 @@ export const FavoritesCard: React.FC<PlaceCardPropsType> = ({
           <button
             className="place-card__bookmark-button button place-card__bookmark-button--active"
             type="button"
-            onClick={onChangeFavorites}
+            onClick={handleChangeFavorites}
           >
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />
