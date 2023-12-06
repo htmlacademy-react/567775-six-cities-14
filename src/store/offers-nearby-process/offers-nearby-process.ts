@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { NameSpace } from '../../../consts';
+import { MAX_NEARBY_LIST_COUNT, NameSpace } from '../../../consts';
 import { OffersNearbyProcess } from '../../types/state';
 import { fetchOffersNearbyAction } from '../api-actions';
 import { OfferItemPropsType } from '../../types/offers';
@@ -34,7 +34,7 @@ export const offersNearby = createSlice({
         const offerNearbyData = action.payload;
 
         if (offerNearbyData.length > 0) {
-          state.offersNearby = [...offerNearbyData].slice(0, 3);
+          state.offersNearby = [...offerNearbyData].slice(0, MAX_NEARBY_LIST_COUNT);
 
           state.offersNearbyMapPoints = state.offersNearby.map((item) => ({
             location: { ...item.location },

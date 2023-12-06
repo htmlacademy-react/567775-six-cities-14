@@ -4,7 +4,7 @@ import { AppRouter } from '../../../consts';
 import { PrivateRoute } from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
 import { browserHistory } from '../../../browser-history';
-import { HistoryRouter } from '../history-route';
+import { HistoryRouter } from '../history-router';
 import { useAppSelector } from '../../hooks/use-store';
 import { getAuthCheckedStatus } from '../../store/user-process/selectors';
 import { Dashboard } from '../dashboard/dashboard';

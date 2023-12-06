@@ -26,7 +26,7 @@ export const FormReview: React.FC<FormReviewsProps> = ({
     setDisabled(formData.review.length < 50 || formData.rating === null);
   }, [formData.rating, formData.review]);
 
-  const fieldChangeHandle = (
+  const handleFieldChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
@@ -81,7 +81,7 @@ export const FormReview: React.FC<FormReviewsProps> = ({
               id={`${radioValue}-stars`}
               type="radio"
               checked={String(radioValue) === String(formData.rating)}
-              onChange={fieldChangeHandle}
+              onChange={handleFieldChange}
               disabled={isOfferCommentSubmitIsPending}
             />
             <label
@@ -102,7 +102,7 @@ export const FormReview: React.FC<FormReviewsProps> = ({
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={formData.review}
-        onChange={fieldChangeHandle}
+        onChange={handleFieldChange}
         maxLength={300}
         disabled={isOfferCommentSubmitIsPending}
       />

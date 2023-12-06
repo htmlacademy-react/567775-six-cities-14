@@ -20,7 +20,7 @@ export const PlaceCard: React.FC<PlaceCardPropsType> = ({
 }: PlaceCardPropsType) => {
   const currentStatus = isFavorite ? 0 : 1;
 
-  const onChangeFavorites = useFavorites(
+  const handleChangeFavorites = useFavorites(
     String(id),
     currentStatus,
     isNearby ? FavoritesTriggerUpdate.Nearby : FavoritesTriggerUpdate.Offers
@@ -64,7 +64,7 @@ export const PlaceCard: React.FC<PlaceCardPropsType> = ({
               'place-card__bookmark-button button'
             )}
             type="button"
-            onClick={onChangeFavorites}
+            onClick={handleChangeFavorites}
           >
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />
