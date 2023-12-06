@@ -24,7 +24,7 @@ export const ReviewsList: React.FC<ReviewsListProps> = ({
   const isLoading = useAppSelector(getOfferCommentsIsLoading);
   const isNotFound = useAppSelector(getOfferCommentsIsNotFound);
 
-  const listSortinByNewDate = listSlice.sort(
+  const listSortingByNewDate = listSlice.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
@@ -38,7 +38,7 @@ export const ReviewsList: React.FC<ReviewsListProps> = ({
             Reviews · <span className="reviews__amount">{listAll.length}</span>
           </h2>
           <ul className="reviews__list">
-            {listSortinByNewDate.map((props) => (
+            {listSortingByNewDate.map((props) => (
               <ReviewsItem {...props} key={props.id} />
             ))}
           </ul>
