@@ -37,11 +37,13 @@ export const ReviewsList: React.FC<ReviewsListProps> = ({
           <h2 className="reviews__title">
             Reviews · <span className="reviews__amount">{listAll.length}</span>
           </h2>
-          <ul className="reviews__list">
-            {listSortingByNewDate.map((props) => (
-              <ReviewsItem {...props} key={props.id} />
-            ))}
-          </ul>
+          {listSortingByNewDate.length > 0 && (
+            <ul className="reviews__list">
+              {listSortingByNewDate.map((props) => (
+                <ReviewsItem {...props} key={props.id} />
+              ))}
+            </ul>
+          )}
         </>
       )}
     </div>

@@ -2,12 +2,18 @@ import { Helmet } from 'react-helmet-async';
 import { useRef, FormEvent } from 'react';
 import { useAppDispatch } from '../../hooks/use-store';
 import { loginAction } from '../../store/api-actions';
+import { locations } from '../main/helper';
+import { setCityActive } from '../../store/offers-process/offers-process';
+import { CityOptionsType } from '../../types/city';
+import { useNavigate } from 'react-router-dom';
+import { AppRouter } from '../../../consts';
 
 export const Login: React.FC = () => {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -19,6 +25,16 @@ export const Login: React.FC = () => {
           password: passwordRef.current.value,
         })
       );
+    }
+  };
+
+  const randomCityLink =
+    locations.list[Math.floor(Math.random() * locations.list.length)];
+
+  const handleNavigateToCityLink = (id: CityOptionsType) => {
+    if (id) {
+      dispatch(setCityActive({ city: id }));
+      navigate(AppRouter.Main);
     }
   };
 
@@ -69,8 +85,15 @@ export const Login: React.FC = () => {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
+              <a
+                className="locations__item-link"
+                href="#"
+                onClick={(event) => {
+                  event.preventDefault();
+                  handleNavigateToCityLink(randomCityLink.id);
+                }}
+              >
+                <span>{randomCityLink.title}</span>
               </a>
             </div>
           </section>
